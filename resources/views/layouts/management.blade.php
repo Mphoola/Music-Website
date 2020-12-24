@@ -210,16 +210,32 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </p>
             </a>
           </li>
+          @if (Auth::guard('admin')->user()->can('edit category'))
+              
           <li class="nav-item">
             <a href="{{ route('categories.index') }}" class="nav-link  @if (Str::startsWith(Request::path(), 'management/categor') )
+            active
+            @endif">
+            <i class="nav-icon fas fa-layer-group"></i>
+            <p>
+              Categories
+            </p>
+          </a>
+        </li>
+        
+        @endif
+        @if (Auth::guard('admin')->user()->can('see posts'))
+          <li class="nav-item">
+            <a href="#" class="nav-link  @if (Str::startsWith(Request::path(), 'management/blog') )
                   active
               @endif">
-              <i class="nav-icon fas fa-layer-group"></i>
+              <i class="nav-icon fas fa-newspaper"></i>
               <p>
-                Categories
+                Blog
               </p>
             </a>
           </li>
+          @endif
           <li class="nav-item">
             <a href="#" class="nav-link  @if (Str::startsWith(Request::path(), 'management/sales') )
                   active
@@ -230,6 +246,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </p>
             </a>
           </li>
+          
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-ad"></i>
@@ -238,15 +255,30 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </p>
             </a>
           </li>
-          
+          @if (Auth::guard('admin')->user()->can('see users'))
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{ route('list_users') }}" class="nav-link @if (Str::startsWith(Request::path(), 'management/user') )
+                  active
+              @endif">
               <i class="nav-icon fas fa-users"></i>
               <p>
                 Users
               </p>
             </a>
           </li>
+          @endif
+          @if (Auth::guard('admin')->user()->can('see admins'))
+          <li class="nav-item">
+            <a href="{{ route('list_admins') }}" class="nav-link @if (Str::startsWith(Request::path(), 'management/admin') )
+                  active
+              @endif">
+              <i class="nav-icon fas fa-unlock-alt"></i>
+              <p>
+                Managers
+              </p>
+            </a>
+          </li>
+          @endif
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-user-alt"></i>
@@ -255,22 +287,30 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </p>
             </a>
           </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-cogs"></i>
-              <p>
+         @if (Auth::guard('admin')->user()->can('change settings'))
+             
+         <li class="nav-item">
+           <a href="#" class="nav-link">
+             <i class="nav-icon fas fa-cogs"></i>
+             <p>
                Settings
               </p>
             </a>
           </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-tasks"></i>
-              <p>
-               Activity Log
-              </p>
-            </a>
-          </li>
+          @endif 
+         
+          @if (Auth::guard('admin')->user()->can('see logs'))
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-tasks"></i>
+                <p>
+                  Activity Log
+                </p>
+              </a>
+            </li>
+            @endif
+         
+
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

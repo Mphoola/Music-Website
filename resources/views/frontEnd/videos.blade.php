@@ -49,10 +49,10 @@
               <h6><a href="{{ route('frontend.videos.show', $v->uuid) }}">{{ $v->full_details }}</a></h6>
               <div class='d-flex justify-content-between'>
                 <div class="product-price">
-                  {{ $v->downloads->count() }} <i class='fa fa-download'></i>
+                  {{ $v->downloads_count }} <i class='fa fa-download'></i>
                 </div>
                 <div class="product-price">
-                {{ $v->comments->count() }} <i class='fa fa-comments'></i>
+                {{ $v->comments_count }} <i class='fa fa-comments'></i>
                 </div>
               </div>
             </div>

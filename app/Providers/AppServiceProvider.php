@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -23,6 +24,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        //custom blade directive to check if the user has a particular permission
+        Blade::directive('newDir', function($v){
+            return "<?php echo nl2br({$v}); ?";
+        });
     }
 }

@@ -45,10 +45,10 @@
                 <h6><a href="{{ route('frontend.music.show', $m->uuid) }}">{{ $m->full_details }}</a></h6>
                 <div class='d-flex justify-content-between'>
                   <div class="product-price">
-                    {{ $m->downloads->count() }} <i class='fa fa-download'></i>
+                    {{ $m->downloads_count }} <i class='fa fa-download'></i>
                   </div>
                   <div class="product-price">
-                    {{ $m->comments->count() }} <i class='fa fa-comments'></i>
+                    {{ $m->comments_count }} <i class='fa fa-comments'></i>
                   </div>
                 </div>
               </div>

@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Admin;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -25,12 +26,14 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+
         $this->registerPolicies();
 
-        Gate::define(\WebDevEtc\BlogEtc\Gates\GateTypes::MANAGE_BLOG_ADMIN, static function(?Model $user){
-            // Implement your logic here, for example:
-            return $user;
-            // Or something like `$user->is_admin === true`
+        // Implicitly grant "Super Admin" role all permissions
+        // This works in the app by using gate-related functions like auth()->user->can() and @can()
+        $user = Admin::find(1);
+        Gate::before(function ($user, $ability) {
+            return $user->hasRole('superAdmn') ? true : null;
         });
     }
 }

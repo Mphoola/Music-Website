@@ -35,10 +35,10 @@
             <h6><a href="{{ route('frontend.music.show', $m->uuid) }}">{{ $m->full_details }}</a></h6>
             <div class='d-flex justify-content-between'>
               <div class="product-price">
-                {{ $m->downloads->count() }} <i class='fa fa-download'></i>
+                {{ $m->downloads_count }} <i class='fa fa-download'></i>
               </div>
               <div class="product-price">
-               {{ $m->comments->count() }} <i class='fa fa-comments'></i>
+               {{ $m->comments_count }} <i class='fa fa-comments'></i>
               </div>
             </div>
           </div>
@@ -69,10 +69,10 @@
             <h6><a href="{{ route('frontend.beats.show', $b->uuid) }}">{{ $b->title }}</a></h6>
             <div class='d-flex justify-content-between'>
               <div class="product-price">
-                {{ $b->downloads->count() }} <i class='fa fa-download'></i>
+                {{ $b->downloads_count }} <i class='fa fa-download'></i>
               </div>
               <div class="product-price">
-               {{ $b->comments->count() }} <i class='fa fa-comments'></i>
+               {{ $b->comments_count }} <i class='fa fa-comments'></i>
               </div>
             </div>
           </div>
@@ -102,10 +102,10 @@
             <h6><a href="{{ route('frontend.videos.show', $v->uuid) }}">{{ $v->title }}</a></h6>
             <div class='d-flex justify-content-between'>
               <div class="product-price">
-                {{ $v->downloads->count() }} <i class='fa fa-download'></i>
+                {{ $v->downloads_count }} <i class='fa fa-download'></i>
               </div>
               <div class="product-price">
-               {{ $v->comments->count() }} <i class='fa fa-comments'></i>
+               {{ $v->comments_count }} <i class='fa fa-comments'></i>
               </div>
             </div>
           </div>

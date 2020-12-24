@@ -35,7 +35,7 @@ class HomeController extends Controller
     }
 
     public function myAudios(){
-        $songs = auth()->user()->songs;
+        $songs = auth()->user()->songs->load('downloads', 'category');
         
         return view('frontEnd.auth.myAudios')->with('songs', $songs);
     }

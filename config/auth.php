@@ -14,8 +14,8 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'web',
-        'passwords' => 'users',
+        'guard' => 'admin',
+        'passwords' => 'admins',
     ],
 
     /*
@@ -36,6 +36,10 @@ return [
     */
 
     'guards' => [
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admins',
+        ],
         'web' => [
             'driver' => 'session',
             'provider' => 'users',
@@ -47,10 +51,6 @@ return [
             'hash' => false,
         ],
         
-        'admin' => [
-            'driver' => 'session',
-            'provider' => 'admins',
-        ],
     ],
 
     /*
@@ -122,5 +122,8 @@ return [
     */
 
     'password_timeout' => 10800,
+     
+    //duration to when admins must reset their passowrd
+    'password_expires_days' => 1,
 
 ];

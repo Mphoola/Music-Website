@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class VideosController extends Controller
 {
     public function index(){
-        $vedios = Video::with('downloads', 'comments')->paginate(8);
+        $vedios = Video::withCount('downloads', 'comments')->paginate(8);
         $most_downloads = Video::withCount('downloads')->orderBy('downloads_count', 'desc')->take(5)->get();
         
         return view('frontEnd.videos')
@@ -55,7 +55,7 @@ class VideosController extends Controller
     }
 
     public function showByCategory(Category $category){
-        $most_downloads = Vides::withCount('downloads')->orderBy('downloads_count', 'desc')->take(5)->get();
+        $most_downloads = Video::withCount('downloads')->orderBy('downloads_count', 'desc')->take(5)->get();
         $vids = $category->videos;
         return view('frontEnd.videos')
             ->with('categories', Category::all())

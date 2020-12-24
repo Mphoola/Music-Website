@@ -16,7 +16,7 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        return view('management.categories.index')->with('categories', Category::all());
+        return view('management.categories.index')->with('categories', Category::withCount('songs')->get());
     }
 
     /**
@@ -57,7 +57,7 @@ class CategoriesController extends Controller
      */
     public function show($id)
     {
-        $cat = Category::findOrFail($id);
+        $cat = Category::findOrFail($id)->load('songs');
         return view('management.categories.show')
             ->with('category', $cat);
     }

@@ -22,17 +22,34 @@ Route::get('/', function () {
 Auth::routes();
 
 
-Route::get('management/login', 'Admin\DashboardController@loginPage')
+Route::get('management/login', 'Admin\Auth\AuthenticationController@loginPage')
         ->name('dashboard.loginPage')->middleware('goHome');
-Route::post('management/login', 'Admin\DashboardController@login')->name('dashboard.login');
-Route::post('management/logout', 'Admin\DashboardController@logout')->name('dashboard.logout');
+Route::post('management/login', 'Admin\Auth\AuthenticationController@login')->name('dashboard.login');
+Route::post('management/logout', 'Admin\Auth\AuthenticationController@logout')->name('dashboard.logout');
 
 Route::group(['middleware' => ['IsAdmin']], function () {
     
+    //password expired
+    Route::get('management/password/expired', 'Admin\Auth\AuthenticationController@expired')
+        ->name('password.expired');
+    Route::post('management/password/post_expired', 'Admin\Auth\AuthenticationController@postExpired')
+        ->name('password.post_expired');
+
+
     // routes for management
-    Route::group(['prefix' => 'management'], function () {
+    Route::group(['prefix' => 'management', 'middleware' => 'password_expired'], function () {
         //dashboard
         Route::get('dashboard', 'Admin\DashboardController@index')->name('dashboard');
+        
+
+        //managers/admins
+        Route::get('/users', 'Admin\UsersController@list_users')->name('list_users');
+        Route::get('/user/{id}/medias', 'Admin\UsersController@list_user_media')->name('list_user_media');
+        Route::post('/user/{id}/delete', 'Admin\UsersController@delete_user')->name('delete_user');
+        Route::get('/admins', 'Admin\UsersController@list_admins')->name('list_admins');
+        Route::post('/admins/create', 'Admin\UsersController@add_admin')->name('add_admin');
+        Route::get('/admins/{id}/permissions', 'Admin\UsersController@list_permissions')->name('list_permissions');
+        Route::put('/admins/{id}/permissions', 'Admin\UsersController@update_permissions')->name('update_permissions');
 
         //categories
         Route::resource('categories', 'Admin\CategoriesController');

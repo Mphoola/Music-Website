@@ -29,7 +29,7 @@
             <tr>
               <td>{{ $category->name }}</td>
               <td>
-                {{ $category->songs->count() }}
+                {{ $category->songs_count }}
               </td>
               <td>
                 <div class="d-flex flex-row">

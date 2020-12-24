@@ -12,7 +12,7 @@ use Intervention\Image\Facades\Image;
 class SongsController extends Controller
 {
     public function index(){
-        return view('management.audios.index')->with('songs', Song::all());
+        return view('management.audios.index')->with('songs', Song::with('category', 'downloads')->get());
     }
     public function create(){
         
@@ -69,7 +69,8 @@ class SongsController extends Controller
     }
 
     public function show($id){
-        $song = Song::findOrFail($id);
+        $song = Song::findOrFail($id)->load('category', 'comments', 'downloads');
+
         return view('management.audios.show', compact('song'));
     }
     public function edit($id){

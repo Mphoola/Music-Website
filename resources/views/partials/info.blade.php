@@ -9,3 +9,9 @@
         {{ session()->get('error') }}
     </div>
 @endif
+
+@if (session()->has('errors'))
+    <div class="alert alert-danger">
+        {{ session()->get('errors') }}
+    </div>
+@endif

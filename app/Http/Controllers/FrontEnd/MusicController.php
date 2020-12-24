@@ -22,7 +22,7 @@ class MusicController extends Controller
 
     public function show($uuid){
         $song = Song::where('uuid', $uuid)->firstOrFail();
-        $song->load('downloads', 'comments');
+        $song->with('downloads', 'comments');
         $most_downloads = Song::withCount('downloads')->orderBy('downloads_count', 'desc')->take(5)->get();
         return view('frontEnd.singleMusic')
             ->with('categories', Category::all())
@@ -32,12 +32,13 @@ class MusicController extends Controller
 
     public function download($uuid){
         $s = Song::where('uuid', $uuid)->firstOrFail();
+
         if($s){
-            $s->downloads()->create();
             $loc = public_path().'/'. $s->location;
-       
+            
             // Storage::download($b->location, $name);
-           return response()->download($loc);
+            return response()->download($loc);
+            $s->downloads()->create();
         }
            
     }
