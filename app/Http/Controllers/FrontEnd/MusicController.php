@@ -11,8 +11,11 @@ use Illuminate\Http\Request;
 class MusicController extends Controller
 {
     public function index(){
-        $music = Song::withCount('downloads', 'comments')->orderBy('created_at', 'desc')->paginate(8);
-        $most_downloads = Song::withCount('downloads')->orderBy('downloads_count', 'desc')->take(5)->get();
+        $music = Song::withCount('comments', 'downloads')
+            ->where('market', 'free')
+            ->orderBy('created_at', 'desc')
+            ->paginate(8);
+        $most_downloads = Song::withCount('downloads')->where('market', 'free')->orderBy('downloads_count', 'desc')->take(5)->get();
         
         return view('frontEnd.music')
             ->with('categories', Category::all())
@@ -23,7 +26,7 @@ class MusicController extends Controller
     public function show($uuid){
         $song = Song::where('uuid', $uuid)->firstOrFail();
         $song->with('downloads', 'comments');
-        $most_downloads = Song::withCount('downloads')->orderBy('downloads_count', 'desc')->take(5)->get();
+        $most_downloads = Song::withCount('downloads')->where('market', 'free')->orderBy('downloads_count', 'desc')->take(5)->get();
         return view('frontEnd.singleMusic')
             ->with('categories', Category::all())
             ->with('song', $song)
@@ -57,7 +60,7 @@ class MusicController extends Controller
     }
 
     public function showByCategory(Category $category){
-        $most_downloads = Song::withCount('downloads')->orderBy('downloads_count', 'desc')->take(5)->get();
+        $most_downloads = Song::withCount('downloads')->where('market', 'free')->orderBy('downloads_count', 'desc')->take(5)->get();
         $songs = $category->songs;
         return view('frontEnd.music')
             ->with('categories', Category::all())

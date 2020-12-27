@@ -2,25 +2,27 @@
 
 namespace App\Http\Controllers\FrontEnd;
 
+use App\Admin;
 use App\Beat;
 use App\Category;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\BeatFormRequest;
 use App\Http\Requests\SongFormRequest;
 use App\Http\Requests\VideoFormRequest;
+use App\Notifications\newVideoUploaded;
 use App\Song;
 use App\Video;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 use Intervention\Image\Facades\Image;
 
 class HomeController extends Controller
 {
     public function index(){
-        $music = Song::withCount('downloads', 'comments')->take(8)->get();
-        $beats = Beat::withCount('downloads', 'comments')->take(4)->get();
-        $vidios = Video::withCount('downloads', 'comments')->take(4)->get();
-        $most_downloads = Song::withCount('downloads')->orderBy('downloads_count', 'desc')->take(5)->get();
+        $music = Song::withCount('downloads', 'comments')->where('market', 'free')->take(8)->get();
+        $beats = Beat::withCount('downloads', 'comments')->where('market', 'free')->take(4)->get();
+        $vidios = Video::withCount('downloads', 'comments')->where('market', 'free')->where('verified', '1')->take(4)->get();
+        $most_downloads = Song::withCount('downloads')->where('market', 'free')->orderBy('downloads_count', 'desc')->get();
         
         return view('frontEnd.welcome')
             ->with('categories', Category::all())
@@ -45,7 +47,7 @@ class HomeController extends Controller
     }
 
     public function myAudioUpload(SongFormRequest $request){
-        
+       
         if($request->hasFile('song')){
             $songNameWithExt = request()->file('song')->getClientOriginalName();
             $songName = pathinfo($songNameWithExt, PATHINFO_FILENAME);
@@ -90,6 +92,7 @@ class HomeController extends Controller
 
     public function myVideos(){
         $videos = auth()->user()->videos;
+        
         return view('frontEnd.auth.myVideos', compact('videos'));
     }
 
@@ -137,7 +140,11 @@ class HomeController extends Controller
             'uuid' => (string)\Uuid::generate(4),
         ]);
 
+        
         if($video) {
+            $admins = Admin::permission('approve video')->get();
+            Notification::send($admins, new newVideoUploaded($video));
+
             return redirect()->route('videos.index')->with('success', 'video added nicely');
         }
     }

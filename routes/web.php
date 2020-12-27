@@ -38,9 +38,17 @@ Route::group(['middleware' => ['IsAdmin']], function () {
 
     // routes for management
     Route::group(['prefix' => 'management', 'middleware' => 'password_expired'], function () {
+        
         //dashboard
         Route::get('dashboard', 'Admin\DashboardController@index')->name('dashboard');
-        
+
+        //notifications
+        Route::get('notifications', 'Admin\NotificationsController@index')->name('notifications');
+        Route::get('notifications/{id}/view-single-notification/{v}', 'Admin\NotificationsController@show')->name('notifications.show');
+        Route::get('notifications/{id}/mark-as-read/', 'Admin\NotificationsController@markAsRead')->name('notifications.markAsRead');
+        Route::get('notifications/mark-all-as-read', 'Admin\NotificationsController@markAllAsRead')->name('notifications.markAllAsRead');
+        Route::get('notifications/{id}/delete-single-notification', 'Admin\NotificationsController@delete')->name('notifications.delete');
+        Route::get('notifications/delete-all-read-notification', 'Admin\NotificationsController@deleteAll')->name('notifications.delete.all');
 
         //managers/admins
         Route::get('/users', 'Admin\UsersController@list_users')->name('list_users');

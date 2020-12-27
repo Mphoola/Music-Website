@@ -11,8 +11,8 @@ use Illuminate\Support\Facades\Storage;
 class BeatsController extends Controller
 {
     public function index(){
-        $beats = Beat::withCount('downloads', 'comments')->paginate(8);
-        $most_downloads = Beat::withCount('downloads')->orderBy('downloads_count', 'desc')->take(5)->get();
+        $beats = Beat::withCount('downloads', 'comments')->where('market', 'free')->paginate(8);
+        $most_downloads = Beat::withCount('downloads')->where('market', 'free')->orderBy('downloads_count', 'desc')->take(5)->get();
         
         return view('frontEnd.beats')
             ->with('categories', Category::all())
@@ -24,7 +24,7 @@ class BeatsController extends Controller
        
         $beat = Beat::where('uuid', $beat)->firstOrFail();
         $beat->load('downloads', 'comments');
-        $most_downloads = Beat::withCount('downloads')->orderBy('downloads_count', 'desc')->take(5)->get();
+        $most_downloads = Beat::withCount('downloads')->where('market', 'free')->orderBy('downloads_count', 'desc')->take(5)->get();
 
         return view('frontEnd.singleBeat')
             ->with('categories', Category::all())
@@ -62,7 +62,7 @@ class BeatsController extends Controller
 
         $bts = $category->beats;
 
-        $most_downloads = Beat::withCount('downloads')->orderBy('downloads_count', 'desc')->take(5)->get();
+        $most_downloads = Beat::withCount('downloads')->where('market', 'free')->orderBy('downloads_count', 'desc')->take(5)->get();
         return view('frontEnd.beats')
             ->with('categories', Category::all())
             ->with('bts', $bts)

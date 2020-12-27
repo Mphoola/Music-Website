@@ -15,7 +15,7 @@ use Webpatser\Uuid\Uuid;
 class videosController extends Controller
 {
     public function index(){
-        return view('management.videos.index')->with('videos', Video::all());
+        return view('management.videos.index')->with('videos', Video::with('category')->withCount('downloads')->get());
     }
     public function create(){
         if(Category::count() == 0){

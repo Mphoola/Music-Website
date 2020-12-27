@@ -178,6 +178,7 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         Darryldecode\Cart\CartServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
+        Dawson\Youtube\YoutubeServiceProvider::class,
 
     ],
 
@@ -233,7 +234,7 @@ return [
         'Image' => Intervention\Image\Facades\Image::class,
         'Cart' => Darryldecode\Cart\Facades\CartFacade::class,
         'Uuid' => \Webpatser\Uuid\Uuid::class,
-        
+        'Youtube' => Dawson\Youtube\Facades\Youtube::class,
     ],
 
 ];

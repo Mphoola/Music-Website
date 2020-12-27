@@ -166,53 +166,14 @@
 <section class="section p-0 bg-gray">
     <h3 class='text-capitalize text-center'>Best of all time</h3>
      <div data-provide="slider" data-autoplay="true" data-slides-to-show="6" data-css-ease="linear" data-speed="12000" data-autoplay-speed="0" data-pause-on-hover="true">
-       <div class="p-2">
-         <div class="rounded bg-img h-200 " style="background-image: url({{ asset('testEnd/images/96.png') }});"></div>
-       picky - Unamata
-       </div>
-       <div class="p-2">
-         <div class="rounded bg-img h-200 " style="background-image: url({{ asset('testEnd/images/96.png') }});"></div>
-       picky - Unamata
-       </div>
-       <div class="p-2">
-         <div class="rounded bg-img h-200 " style="background-image: url({{ asset('testEnd/images/96.png') }});"></div>
-       picky - Unamata
-       </div>
-       <div class="p-2">
-         <div class="rounded bg-img h-200 " style="background-image: url({{ asset('testEnd/images/96.png') }});"></div>
-       picky - Unamata
-       </div>
-       <div class="p-2">
-         <div class="rounded bg-img h-200 " style="background-image: url({{ asset('testEnd/images/96.png') }});"></div>
-       picky - Unamata
-       </div>
-       <div class="p-2">
-         <div class="rounded bg-img h-200 " style="background-image: url({{ asset('testEnd/images/us.png') }});"></div>
-       picky - Unamata
-       </div>
-       <div class="p-2">
-         <div class="rounded bg-img h-200 " style="background-image: url({{ asset('testEnd/images/us.png') }});"></div>
-       picky - Unamata
-       </div>
-       <div class="p-2">
-         <div class="rounded bg-img h-200 " style="background-image: url({{ asset('testEnd/images/us.png') }});"></div>
-       picky - Unamata
-       </div>
-
-       <div class="p-2">
-         <div class="rounded bg-img h-200 " style="background-image: url({{ asset('testEnd/images/us.png') }});"></div>
-       picky - Unamata
-       </div>
-
-       <div class="p-2">
-         <div class="rounded bg-img h-200 " style="background-image: url({{ asset('testEnd/images/96.png') }});"></div>
-       picky - Unamata
-       </div>
-
-       <div class="p-2">
-         <div class="rounded bg-img h-200 " style="background-image: url({{ asset('testEnd/images/96.png') }});"></div>
-       picky - Unamata
-       </div>
+      @foreach ($most_downloads as $d)
+      <a href="">
+        <div class="p-2">
+            <div class="rounded bg-img h-200 " style="background-image: url({{ asset($d->cover_image) }});"></div>
+            {{ $d->full_details }}
+          </div>
+        </a>
+       @endforeach
      </div>
    </section>
 @endsection

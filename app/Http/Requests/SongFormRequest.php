@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class SongFormRequest extends FormRequest
 {
@@ -23,15 +24,33 @@ class SongFormRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        $rules =  [
             'title' => 'required',
             'artist' => 'required',
             'producer' => 'required',
             'category_id' => 'required',
-            'released_date' => 'required|date|before:now',
-            'cover_image' => 'required|sometimes|image|mimes:jpeg,bmp,png,jpg|max:3000',
-            'song' => 'required|sometimes|mimes:mp3,wav,mpga,audio/mpeg',            
-            'amount' => 'required_if:market, sale',
+            'released_date' => 'required|date|before:now',           
         ];
+
+        if(request()->method() == 'POST'){
+            $rules += [
+                'song' => 'required|mimes:mp3,wav,mpga,audio/mpeg', 
+                'cover_image' => 'required|image|mimes:jpeg,bmp,png,jpg|max:3000'
+            ];
+        }else{
+            $rules += [
+                'song' => 'mimes:mp3,wav,mpga,audio/mpeg', 
+                'cover_image' => 'image|mimes:jpeg,bmp,png,jpg|max:3000'
+            ];
+        }
+
+        
+        if(request()->market == 'sale'){
+            $rules += [
+                'amount' => 'required', 
+            ];  
+        }
+
+        return $rules;
     }
 }

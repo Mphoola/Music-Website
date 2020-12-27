@@ -130,8 +130,9 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'amount' => [
+            'required' => 'If you have decided that the product is for sale then give it a price,
+            else make sure that market is FREE',
         ],
     ],
 

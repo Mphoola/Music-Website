@@ -99,7 +99,11 @@
         <div class="form-group">
             <label for="amount">Cost of the video</label>
             <input type="text" class="form-control" name="amount" id="amount" value="{{ isset($video) ? $video->amount :old('amount') }}"
-            placeholder="Leave here empty if the video is for free download" min="100">
+            placeholder="Leave here empty if the video is for free download" min="100"
+            class="@error('amount') is-invalid @enderror">
+            @error('amount')
+                    <div class="alert-danger">{{ $message }}</div>
+            @enderror
         </div>
        
           <div class="form-group">
