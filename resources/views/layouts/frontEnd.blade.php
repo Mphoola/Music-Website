@@ -16,6 +16,9 @@
         <link rel='stylesheet' href='{{ asset('testEnd/css/styles.min.css') }}'>
         <link rel="stylesheet" href="{{ asset('testEnd/css/page.min.css') }}">
         <link rel="stylesheet" href="{{ asset('testEnd/css/fontawesome.min.css') }}">
+
+          <!-- toastr -->
+          <link rel="stylesheet" href="{{ asset('96/css/toastr.min.css') }}">
     </head>
     <body>
         <!--[if lt IE 7]>
@@ -39,6 +42,7 @@
                   <a class="nav-link" href="{{ route('frontend.beats') }}">Beats</a>
                   <a class="nav-link" href="{{ route('frontend.videos') }}">Videos</a>
                   <a class="nav-link" href="{{ route('shop.index') }}">Shop</a>
+                  <a class="nav-link" href="{{ route('blogs.index') }}">Blog</a>
                   <a class="nav-link" href="">About</a>
                   <a class="nav-link" href="">Contact</a>
                 </nav>
@@ -56,19 +60,7 @@
 <!-- Navbar -->
 <!-- /.navbar -->
           <!-- Header 
-            <header class="header text-white" style="background-image: url({{ asset('testEnd/images/96.png') }})" data-overlay="8">
-                <div class="container text-center">
-
-                <div class="row">
-                    <div class="col-lg-8 mx-auto">
-
-                    <h1>Malawian Sounds <span class="text-primary" data-typing=" Trending, Lattest, top chats , and many more"></span></h1>
-                    <p class="lead-2 mt-5">You have got the change to work and thrive with us. We are a small group of developers who wants to make a family!</p>
-
-                    </div>
-                </div>
-
-                </div>
+          
             </header>-- /.header -->
 
             @yield('header')
@@ -79,371 +71,8 @@
         <div class="container">
           <div class="row">
 
-            {{-- <div class="col-md-8 col-xl-9">
-             <h2 class="mt-0 mb-1 text-capitalize">Best Music</h2>
-              
-              <div class="row gap-y">
-
-                <div class="col-md-4 col-xl-3 hover-shadow-1 mb-1">
-                  <div class="product-3 mb-1">
-                    <a class="product-media" href="item.html">
-                      <span class="badge badge-pill badge-primary badge-pos-left">New</span>
-                      <img src="{{ asset('testEnd/images/96.png') }}" alt="product">
-                    </a>
-
-                    <div class="product-detail">
-                      <h6><a href="#">Picksy - Unamata mtima wanga wonse</a></h6>
-                      <div class='d-flex justify-content-between'>
-                        <div class="product-price">
-                          9 <i class='fa fa-download'></i>
-                        </div>
-                        <div class="product-price">
-                         3 <i class='fa fa-comments'></i>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-4 col-xl-3 hover-shadow-1 mb-1">
-                  <div class="product-3 mb-1">
-                    <a class="product-media" href="item.html">
-                      <span class="badge badge-pill badge-primary badge-pos-left">New</span>
-                      <img src="{{ asset('testEnd/images/96.png') }}" alt="product">
-                    </a>
-
-                    <div class="product-detail">
-                      <h6><a href="#">Picksy - Unamata mtima wanga wonse</a></h6>
-                      <div class='d-flex justify-content-between'>
-                        <div class="product-price">
-                          9 <i class='fa fa-download'></i>
-                        </div>
-                        <div class="product-price">
-                         3 <i class='fa fa-comments'></i>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-4 col-xl-3 hover-shadow-1 mb-1">
-                  <div class="product-3 mb-1">
-                    <a class="product-media" href="item.html">
-                      <span class="badge badge-pill badge-primary badge-pos-left">New</span>
-                      <img src="{{ asset('testEnd/images/96.png') }}" alt="product">
-                    </a>
-
-                    <div class="product-detail">
-                      <h6><a href="#">Picksy - Unamata mtima wanga wonse</a></h6>
-                      <div class='d-flex justify-content-between'>
-                        <div class="product-price">
-                          9 <i class='fa fa-download'></i>
-                        </div>
-                        <div class="product-price">
-                         3 <i class='fa fa-comments'></i>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-4 col-xl-3 hover-shadow-1 mb-1">
-                  <div class="product-3 mb-1">
-                    <a class="product-media" href="item.html">
-                      <span class="badge badge-pill badge-primary badge-pos-left">New</span>
-                      <img src="{{ asset('testEnd/images/96.png') }}" alt="product">
-                    </a>
-
-                    <div class="product-detail">
-                      <h6><a href="#">Picksy - Unamata mtima wanga wonse</a></h6>
-                      <div class='d-flex justify-content-between'>
-                        <div class="product-price">
-                          9 <i class='fa fa-download'></i>
-                        </div>
-                        <div class="product-price">
-                         3 <i class='fa fa-comments'></i>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-4 col-xl-3 hover-shadow-1 mb-1">
-                  <div class="product-3 mb-1">
-                    <a class="product-media" href="item.html">
-                      <span class="badge badge-pill badge-primary badge-pos-left">New</span>
-                      <img src="{{ asset('testEnd/images/96.png') }}" alt="product">
-                    </a>
-
-                    <div class="product-detail">
-                      <h6><a href="#">Picksy - Unamata mtima wanga wonse</a></h6>
-                      <div class='d-flex justify-content-between'>
-                        <div class="product-price">
-                          9 <i class='fa fa-download'></i>
-                        </div>
-                        <div class="product-price">
-                         3 <i class='fa fa-comments'></i>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-4 col-xl-3 hover-shadow-1 mb-1">
-                  <div class="product-3 mb-1">
-                    <a class="product-media" href="item.html">
-                      <span class="badge badge-pill badge-primary badge-pos-left">New</span>
-                      <img src="{{ asset('testEnd/images/96.png') }}" alt="product">
-                    </a>
-
-                    <div class="product-detail">
-                      <h6><a href="#">Picksy - Unamata mtima wanga wonse</a></h6>
-                      <div class='d-flex justify-content-between'>
-                        <div class="product-price">
-                          9 <i class='fa fa-download'></i>
-                        </div>
-                        <div class="product-price">
-                         3 <i class='fa fa-comments'></i>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-4 col-xl-3 hover-shadow-1 mb-1">
-                  <div class="product-3 mb-1">
-                    <a class="product-media" href="item.html">
-                      <span class="badge badge-pill badge-primary badge-pos-left">New</span>
-                      <img src="{{ asset('testEnd/images/96.png') }}" alt="product">
-                    </a>
-
-                    <div class="product-detail">
-                      <h6><a href="#">Picksy - Unamata mtima wanga wonse</a></h6>
-                      <div class='d-flex justify-content-between'>
-                        <div class="product-price">
-                          9 <i class='fa fa-download'></i>
-                        </div>
-                        <div class="product-price">
-                         3 <i class='fa fa-comments'></i>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-4 col-xl-3 hover-shadow-1 mb-1">
-                  <div class="product-3 mb-1">
-                    <a class="product-media" href="item.html">
-                      <span class="badge badge-pill badge-primary badge-pos-left">New</span>
-                      <img src="{{ asset('testEnd/images/96.png') }}" alt="product">
-                    </a>
-
-                    <div class="product-detail">
-                      <h6><a href="#">Picksy - Unamata mtima wanga wonse</a></h6>
-                      <div class='d-flex justify-content-between'>
-                        <div class="product-price">
-                          9 <i class='fa fa-download'></i>
-                        </div>
-                        <div class="product-price">
-                         3 <i class='fa fa-comments'></i>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                
-
-              </div>
-
-
-              <nav class="float-right">
-                <a class="btn btn-round btn-outline-success w-200 px-6" href="#section-demo">Explore More</a>
-              </nav>
-
-             <h2 class="mt-3 mb-1 text-capitalize">Lattest Beats</h2>
-              
-              <div class="row gap-y">
-
-                <div class="col-md-4 col-xl-3 hover-shadow-6 mb-1 d-block">
-                  <div class="product-3 mb-1">
-                    <a class="product-media" href="item.html">
-                      <span class="badge badge-pill badge-primary badge-pos-left">New</span>
-                      <img src="{{ asset('testEnd/images/96.png') }}" alt="product">
-                    </a>
-
-                    <div class="product-detail">
-                      <h6><a href="#">Apple EarPods</a></h6>
-                      <div class="product-price">$160</div>
-                    </div>
-                  </div>
-                </div>               
-                
-                <div class="col-md-4 col-xl-3 hover-shadow-6 mb-1 d-block">
-                  <div class="product-3 mb-1">
-                    <a class="product-media" href="item.html">
-                      <span class="badge badge-pill badge-primary badge-pos-left">New</span>
-                      <img src="{{ asset('testEnd/images/96.png') }}" alt="product">
-                    </a>
-
-                    <div class="product-detail">
-                      <h6><a href="#">Apple EarPods</a></h6>
-                      <div class="product-price">$160</div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-4 col-xl-3 hover-shadow-6 mb-1 d-block">
-                  <div class="product-3 mb-1">
-                    <a class="product-media" href="item.html">
-                      <span class="badge badge-pill badge-primary badge-pos-left">New</span>
-                      <img src="{{ asset('testEnd/images/96.png') }}" alt="product">
-                    </a>
-
-                    <div class="product-detail">
-                      <h6><a href="#">Apple EarPods</a></h6>
-                      <div class="product-price">$160</div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-4 col-xl-3 hover-shadow-6 mb-1 d-block">
-                  <div class="product-3 mb-1">
-                    <a class="product-media" href="item.html">
-                      <span class="badge badge-pill badge-primary badge-pos-left">New</span>
-                      <img src="{{ asset('testEnd/images/96.png') }}" alt="product">
-                    </a>
-
-                    <div class="product-detail">
-                      <h6><a href="#">Apple EarPods</a></h6>
-                      <div class="product-price">$160</div>
-                    </div>
-                  </div>
-                </div>
-
-
-              </div>
-
-
-              <nav class="float-right">
-                <a class="btn btn-round btn-outline-success w-200 px-6" href="#section-demo">Explore More</a>
-              </nav>
-             <h2 class="mt-3 mb-1 text-capitalize">Lattest Videos</h2>
-              
-               <div class="row gap-y">
-
-                <div class="col-md-4 col-xl-3 hover-shadow-6 mb-1 d-block">
-                  <div class="product-3 mb-1">
-                    <a class="product-media" href="item.html">
-                      <span class="badge badge-pill badge-primary badge-pos-left">New</span>
-                      <img src="{{ asset('testEnd/images/96.png') }}" alt="product">
-                    </a>
-
-                    <div class="product-detail">
-                      <h6><a href="#">Apple EarPods</a></h6>
-                      <div class="product-price">$160</div>
-                    </div>
-                  </div>
-                </div>               
-                
-                <div class="col-md-4 col-xl-3 hover-shadow-6 mb-1 d-block">
-                  <div class="product-3 mb-1">
-                    <a class="product-media" href="item.html">
-                      <span class="badge badge-pill badge-primary badge-pos-left">New</span>
-                      <img src="{{ asset('testEnd/images/96.png') }}" alt="product">
-                    </a>
-
-                    <div class="product-detail">
-                      <h6><a href="#">Apple EarPods</a></h6>
-                      <div class="product-price">$160</div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-4 col-xl-3 hover-shadow-6 mb-1 d-block">
-                  <div class="product-3 mb-1">
-                    <a class="product-media" href="item.html">
-                      <span class="badge badge-pill badge-primary badge-pos-left">New</span>
-                      <img src="{{ asset('testEnd/images/96.png') }}" alt="product">
-                    </a>
-
-                    <div class="product-detail">
-                      <h6><a href="#">Apple EarPods</a></h6>
-                      <div class="product-price">$160</div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-4 col-xl-3 hover-shadow-6 mb-1 d-block">
-                  <div class="product-3 mb-1">
-                    <a class="product-media" href="item.html">
-                      <span class="badge badge-pill badge-primary badge-pos-left">New</span>
-                      <img src="{{ asset('testEnd/images/96.png') }}" alt="product">
-                    </a>
-
-                    <div class="product-detail">
-                      <h6><a href="#">Apple EarPods</a></h6>
-                      <div class="product-price">$160</div>
-                    </div>
-                  </div>
-                </div>
-
-
-              </div>
-
-
-              <nav class="float-right">
-                <a class="btn btn-round btn-outline-success w-200 px-6" href="#section-demo">Explore More</a>
-              </nav>
-
-        
-            </div> --}}
             @yield('main-section')
 
-
-
-            {{-- <div class="col-md-4 col-xl-3">
-              <div class="sidebar px-4 py-md-0">
-
-                <h6 class="sidebar-title">Search</h6>
-                <form class="input-group" target="#" method="GET">
-                  <input type="text" class="form-control" name="s" placeholder="Search">
-                  <div class="input-group-addon">
-                    <span class="input-group-text"><i class="fa fa-search"></i></span>
-                  </div>
-                </form>
-
-                <hr>
-
-                <h6 class="sidebar-title">Categories</h6>
-                <div class="row link-color-default fs-14 lh-24">
-                  <div class="col-6"><a href="#">News</a></div>
-                  <div class="col-6"><a href="#">Updates</a></div>
-                  <div class="col-6"><a href="#">Design</a></div>
-                  <div class="col-6"><a href="#">Marketing</a></div>
-                  <div class="col-6"><a href="#">Partnership</a></div>
-                  <div class="col-6"><a href="#">Product</a></div>
-                  <div class="col-6"><a href="#">Hiring</a></div>
-                  <div class="col-6"><a href="#">Offers</a></div>
-                </div>
-
-                <hr>
-
-                <h6 class="sidebar-title">Most Downloads</h6>
-                <a class="media text-default align-items-center mb-5" href="blog-single.html">
-                  <img class="rounded w-65px mr-4" src="{{ asset('testEnd/images/96.png') }}">
-                  <p class="media-body small-2 lh-4 mb-0">Thank to Maryam for joining our team</p>
-                </a>
-
-                <a class="media text-default align-items-center mb-5" href="blog-single.html">
-                  <img class="rounded w-65px mr-4" src="{{ asset('testEnd/images/96.png') }}">
-                  <p class="media-body small-2 lh-4 mb-0">Best practices for minimalist design</p>
-                </a>
-
-                <a class="media text-default align-items-center mb-5" href="blog-single.html">
-                  <img class="rounded w-65px mr-4" src="{{ asset('testEnd/images/96.png') }}">
-                  <p class="media-body small-2 lh-4 mb-0">New published books for product designers</p>
-                </a>
-
-                <a class="media text-default align-items-center mb-5" href="blog-single.html">
-                  <img class="rounded w-65px mr-4" src="{{ asset('testEnd/images/96.png') }}">
-                  <p class="media-body small-2 lh-4 mb-0">Top 5 brilliant content marketing strategies</p>
-                </a>
-
-                <hr>
-
-
-
-              </div>
-            </div> --}}
 
             @yield('sidebar')
 
@@ -452,83 +81,9 @@
         </div>
       </div>
       
-       {{-- <section class="section p-0 bg-gray">
-       <h3 class='text-capitalize text-center'>Best of all time</h3>
-        <div data-provide="slider" data-autoplay="true" data-slides-to-show="6" data-css-ease="linear" data-speed="12000" data-autoplay-speed="0" data-pause-on-hover="true">
-          <div class="p-2">
-            <div class="rounded bg-img h-200 " style="background-image: url({{ asset('testEnd/images/96.png') }});"></div>
-          picky - Unamata
-          </div>
-          <div class="p-2">
-            <div class="rounded bg-img h-200 " style="background-image: url({{ asset('testEnd/images/96.png') }});"></div>
-          picky - Unamata
-          </div>
-          <div class="p-2">
-            <div class="rounded bg-img h-200 " style="background-image: url({{ asset('testEnd/images/96.png') }});"></div>
-          picky - Unamata
-          </div>
-          <div class="p-2">
-            <div class="rounded bg-img h-200 " style="background-image: url({{ asset('testEnd/images/96.png') }});"></div>
-          picky - Unamata
-          </div>
-          <div class="p-2">
-            <div class="rounded bg-img h-200 " style="background-image: url({{ asset('testEnd/images/96.png') }});"></div>
-          picky - Unamata
-          </div>
-          <div class="p-2">
-            <div class="rounded bg-img h-200 " style="background-image: url({{ asset('testEnd/images/96.png') }});"></div>
-          picky - Unamata
-          </div>
-          <div class="p-2">
-            <div class="rounded bg-img h-200 " style="background-image: url({{ asset('testEnd/images/96.png') }});"></div>
-          picky - Unamata
-          </div>
-          <div class="p-2">
-            <div class="rounded bg-img h-200 " style="background-image: url({{ asset('testEnd/images/96.png') }});"></div>
-          picky - Unamata
-          </div>
-
-          <div class="p-2">
-            <div class="rounded bg-img h-200 " style="background-image: url({{ asset('testEnd/images/96.png') }});"></div>
-          picky - Unamata
-          </div>
-
-          <div class="p-2">
-            <div class="rounded bg-img h-200 " style="background-image: url({{ asset('testEnd/images/96.png') }});"></div>
-          picky - Unamata
-          </div>
-
-          <div class="p-2">
-            <div class="rounded bg-img h-200 " style="background-image: url({{ asset('testEnd/images/96.png') }});"></div>
-          picky - Unamata
-          </div>
-        </div>
-      </section> --}}
 
       @yield('slider')
 
-      {{-- <section class="section py-5"  data-overlay="6" style="background-image: url({{ asset('testEnd/images/96.png') }})" >
-        <div class="container">
-          <div class="row">
-            <div class="col-md-8 col-xl-6 mx-auto">
-
-              <div class="section-dialog bg-transparent text-white shadow-6">
-                <h4>Latest Music direct to your inbox</h4>
-                <p class="text-right small pr-5">Subscribe Now</p>
-                <form class="input-glass input-round" action="" method="post" target="_blank">
-                  <div class="input-group">
-                    <input type="text" name="EMAIL" class="form-control" placeholder="Enter Email Address">
-                    <span class="input-group-append">
-                      <button class="btn btn-glass btn-light" type="button">Sign up</button>
-                    </span>
-                  </div>
-                </form>
-              </div>
-
-            </div>
-          </div>
-        </div>
-      </section> --}}
 
       @yield('subscribe')
     </main>
@@ -577,5 +132,18 @@
         <script src="{{ asset('testEnd/js/page.min.js') }}"></script>
         <script src="{{ asset('testEnd/js/fontawesome.js') }}"></script>
         <script src="{{ asset('testEnd/js/script.js') }}"></script>
+
+        <!-- toastr -->
+      <script src="{{ asset('96/js/toastr.min.js') }}"></script>
+
+
+      <script>
+        @if (Session::has('success'))
+          toastr.success('{{ session()->get('success') }}')
+        @endif
+        @if (Session::has('error'))
+          toastr.error('{{ session()->get('error') }}')
+        @endif
+      </script>
     </body>
 </html>

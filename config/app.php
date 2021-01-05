@@ -179,6 +179,7 @@ return [
         Darryldecode\Cart\CartServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
         Dawson\Youtube\YoutubeServiceProvider::class,
+        Yajra\DataTables\DataTablesServiceProvider::class
 
     ],
 
@@ -235,6 +236,7 @@ return [
         'Cart' => Darryldecode\Cart\Facades\CartFacade::class,
         'Uuid' => \Webpatser\Uuid\Uuid::class,
         'Youtube' => Dawson\Youtube\Facades\Youtube::class,
+        'Datatables' => Yajra\DataTables\Facades\Datatables::class
     ],
 
 ];

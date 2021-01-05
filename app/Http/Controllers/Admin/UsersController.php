@@ -58,14 +58,14 @@ class UsersController extends Controller
 
     public function list_permissions( $id){
         if(Auth::guard('admin')->user()->can('see admins')){
-        $admin = Admin::findOrFail($id);
-        return view('management.managers.list_permissions')
-            ->with('admin', $admin)
-            ->with('roles', Role::all())
-            ->with('admin_current_role', $admin->getRoleNames())
-            ->with('permissions', Permission::all())
-            ->with('current_permissions', $admin->getAllPermissions());
-        }else{
+            $admin = Admin::findOrFail($id);
+            return view('management.managers.list_permissions')
+                ->with('admin', $admin)
+                ->with('roles', Role::all())
+                ->with('admin_current_role', $admin->getRoleNames())
+                ->with('permissions', Permission::all())
+                ->with('current_permissions', $admin->getAllPermissions());
+            }else{
             return redirect()->back()->with('error', 'You are not authorized to carry that action');
         }
     }

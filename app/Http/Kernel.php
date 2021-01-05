@@ -65,6 +65,7 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'goHome' => \App\Http\Middleware\GoHome::class,
         'IsAdmin' => \App\Http\Middleware\IsAdmin::class,
+        'ActivityLogGuard' => \App\Http\Middleware\ActivityLogGuard::class,
         'password_expired' => \App\Http\Middleware\PasswordExpired::class,
         'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class,
         'permission' => \Spatie\Permission\Middlewares\PermissionMiddleware::class,

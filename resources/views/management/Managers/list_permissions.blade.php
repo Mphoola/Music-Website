@@ -15,6 +15,8 @@ Edit Permissions For | {{ $admin->name }}
         <div class="card-header card-success">
           <h2 class="text-center mb-0" style="text-transformation:capitalise; font-weight:bold">
             {{ $admin->name }}
+            <a href="{{ route('logs.show.user', ['id' => $admin->id, 'g' => 'Admin']) }}" 
+              class="btn btn-info btn-sm btn-round float-right">See Logs</a>
           </h2>
         </div>
         <div class="card-body">

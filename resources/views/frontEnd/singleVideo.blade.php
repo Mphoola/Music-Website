@@ -19,107 +19,6 @@
 @endsection
 
 @section('main-section')
-{{-- <div class="col-md-8 col-xl-9">
-     
-     <div class="row gap-y">
-      <section class="section">
-        <div class="container">
-
-          <div class="row">
-
-            <div class="col-12">
-                <video  controls class="" style="margin-top: -30px">
-                    <source src="{{ asset($video->location) }}" type="video/mp4">
-                    Your browser does not support HTML5 video.
-                  </video>
-            </div>
-
-          </div>
-          <div class="row">
-
-            <div class="col-6 mx-auto col-md-7 mx-md-0">
-              <p class="text-light mt-3">Title: <strong>{{ $video->title }} </strong></p>
-              <p class="text-light">Artist: <strong>{{ $video->artist }} </strong></p>
-              <p class="text-light">Producer: <strong>{{ $video->producer }} </strong></p>
-              <p class="text-light">Release Date: <strong>{{ $video->released_date }} </strong></p>
-              <p class="text-light">Downloads: <strong>{{ $video->downloads->count() }} </strong></p>
-            </div>
-              <div class="col-6 col-md-5 gap-y align-items-center text-center bg-light rounded p-5">
-                <div class="">                 
-                    <a class="btn btn-lg btn-success" href="{{ route('frontend.videos.download', $video->uuid) }}">
-                      Download Now
-                    </a>
-                </div>
-              </div>
-
-          </div>
-
-          <hr class="my-4">
-
-          <div class="row">
-            <div class="col-12 ">
-              <h5><strong>{{ $video->comments->count() }}</strong> Comments and Reviews</h5>
-
-              <div class=" mx-auto">
-    
-                <div class="media-list">
-  
-                  @forelse ($video->comments as $c)
-                  <div class="media">
-                    <img class="avatar avatar-sm mr-4" src="{{ asset('testEnd/images/96.png') }}" alt="...">
-  
-                    <div class="media-body">
-                      <div class="small-1">
-                        <strong>{{ $c->creator }}</strong>
-                        <time class="ml-4 opacity-70 small-3" datetime="2018-07-14 20:00">
-                          {{ $c->created_at->diffForHumans() }}
-                        </time>
-                      </div>
-                      <p class="small-2 mb-0">
-                        {{ $c->content }}
-                      </p>
-                    </div>
-                  </div>
-                  @empty
-                      <h3 class="text-center lead-4">No comments yet. Be the first to review</h3>
-                  @endforelse
-  
-                </div>
-  
-  
-                <hr>
-  
-  
-                <form action="{{ route('frontend.videos.comment', $video->uuid) }}" method="POST">
-                  @csrf
-                  <div class="row">
-                    <div class="form-group col-12 col-md-6">
-                      <input class="form-control" type="text" placeholder="Name" required minlength="4" maxlength="25"
-                      name="creator_name">
-                    </div>
-  
-                    <div class="form-group col-12 col-md-6">
-                      <input class="form-control" type="email" placeholder="Email" required name="creator_email">
-                    </div>
-                  </div>
-  
-                  <div class="form-group">
-                    <textarea class="form-control" placeholder="Comment" rows="4" required maxlength="500" minlength="3"
-                    name="content"></textarea>
-                  </div>
-  
-                  <button class="btn btn-primary btn-block" type="submit">Submit your comment</button>
-                </form>
-  
-              </div>
-
-            </div>
-          </div>
-
-        </div>
-      </section>
-     </div>
-</div> --}}
 <div class="col-md-8 col-xl-9">
      
   <div class="row gap-y">
@@ -142,8 +41,10 @@
           <p class="text-light mt-3">Title: <strong>{{ $video->title }} </strong></p>
           <p class="text-light">Artist: <strong>{{ $video->artist }} </strong></p>
           <p class="text-light">Producer: <strong>{{ $video->producer }} </strong></p>
-          <p class="text-light">Release Date: <strong>{{ $video->released_date }} </strong></p>
-          <p class="text-light">Downloads: <strong>{{ $video->downloads->count() }} </strong></p>
+          <p class="text-light">Release Date: <strong>{{ $video->produced_date }} </strong></p>
+          <p class="text-light">Category: <strong>{{ $video->category->name }} </strong></p>
+          <p class="text-light">Size: <strong>{{ $size }} MB </strong></p>
+          <p class="text-light">Downloads: <strong>{{ $video->downloads_count }} </strong></p>
          </div>
 
          <div class="col-6  col-md-7">

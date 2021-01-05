@@ -16,7 +16,8 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        return view('management.categories.index')->with('categories', Category::withCount('songs')->get());
+        return view('management.categories.index')
+            ->with('categories', Category::withCount('songs')->get());
     }
 
     /**
@@ -93,7 +94,12 @@ class CategoriesController extends Controller
      */
     public function destroy($id)
     {
-        if(Category::findOrFail($id)->delete()){
+        $category = Category::findOrFail($id);
+
+        if($category->songs->count() || $category->beats->count() || $category->videos->count() != 0){
+            return redirect()->back()->with('error', 'Category canot be deleted now. Make sure it has no songs, videos, or beats!');
+        }
+        if($category->delete()){
             return redirect()->back()->with('success', 'Category is deleted success');
         }
     }

@@ -6,6 +6,7 @@ use App\Beat;
 use App\Song;
 use App\Video;
 use Darryldecode\Cart\Cart;
+
 use Illuminate\Http\Request;
 
 class CartController extends Controller
@@ -30,7 +31,7 @@ class CartController extends Controller
             
         ))->associate($model);
 
-        return redirect()->route('cart.items');
+        return redirect()->route('cart.items')->with('success', 'One item added to your cart');
     }
     public function add_to_cart_rapid($id, $model){
         
@@ -53,7 +54,7 @@ class CartController extends Controller
         ))->associate($m);
 
 
-        return redirect()->route('cart.items');
+        return redirect()->route('cart.items')->with('success', 'One item added to your cart');
     }
     
 
@@ -68,7 +69,7 @@ class CartController extends Controller
         //dd(\Cart::getContent());
         \Cart::remove($id);
 
-        return redirect()->back();
+        return redirect()->back()->with('success', 'You have removed one item in the cart');
     }
 
     public function cart_incr_qty($id){
@@ -76,7 +77,7 @@ class CartController extends Controller
             'quantity' => +1, // so if the current product has a quantity of 4, it will subtract 1 and will result to 3
           ));
 
-          return redirect()->back();
+          return redirect()->back()->with('success', 'You have increased quantity to the cart');
     }
 
     public function cart_decr_qty($id){
@@ -84,6 +85,6 @@ class CartController extends Controller
             'quantity' => -1, // so if the current product has a quantity of 4, it will subtract 1 and will result to 3
           ));
 
-          return redirect()->back();  
+          return redirect()->back()->with('success', 'You have decreased quantity to the cart');  
     }
 }

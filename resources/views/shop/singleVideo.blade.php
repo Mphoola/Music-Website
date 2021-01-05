@@ -42,7 +42,7 @@
                     
                     <p class="product-details-info-text">
                         
-                        Downloads: {{ $video->downloads->count() }}
+                        Downloads: {{ $video->downloads_count }}
                     </p>
 
                     <form action="{{ route('cart.add') }}" method="post">

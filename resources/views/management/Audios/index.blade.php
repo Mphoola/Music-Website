@@ -32,7 +32,7 @@
                     <td>{{ $song->title }}</td>
                     <td>{{ $song->artist }}</td>
                     <td>{{ $song->category->name }}</td>
-                    <td>{{ $song->downloads->count() }}</td>
+                    <td>{{ $song->downloads_count }}</td>
                     <td>
                         <a href="{{ route('songs.show', $song->id) }}" class="btn btn-info btn-round btn-sm">View More</a>
                     </td>
@@ -43,7 +43,13 @@
               
           </table>
         </div>
+        
         <!-- /.card-body -->
+      </div>
+      <div class="card-footer clearfix">
+        <ul class="pagination pagination-sm m-0 float-right">
+          {{ $songs->links() }}
+        </ul>
       </div>
       <!-- /.card -->
     </div> 

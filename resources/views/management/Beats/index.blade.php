@@ -30,7 +30,7 @@
                 <tr>
                     <td>{{ $beat->title }}</td>
                     <td>{{ $beat->category->name }}</td>
-                    <td>{{ $beat->downloads->count() }}</td>
+                    <td>{{ $beat->downloads_count }}</td>
                     <td>
                         <a href="{{ route('beats.show', $beat->id) }}" class="btn btn-info btn-round btn-sm">View More</a>
                     </td>
@@ -42,6 +42,11 @@
           </table>
         </div>
         <!-- /.card-body -->
+      </div>
+      <div class="card-footer clearfix">
+        <ul class="pagination pagination-sm m-0 float-right">
+          {{ $beats->links() }}
+        </ul>
       </div>
       <!-- /.card -->
     </div>

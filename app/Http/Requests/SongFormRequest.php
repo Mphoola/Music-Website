@@ -29,7 +29,7 @@ class SongFormRequest extends FormRequest
             'artist' => 'required',
             'producer' => 'required',
             'category_id' => 'required',
-            'released_date' => 'required|date|before:now',           
+            'released_date' => 'required|date|before:today',           
         ];
 
         if(request()->method() == 'POST'){

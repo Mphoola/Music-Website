@@ -34,8 +34,10 @@
             <div class="col-6 mx-auto col-md-7 mx-md-0">
               <p class="text-light">Title: <strong>{{ $beat->title }} </strong></p>
               <p class="text-light">Producer: <strong>{{ $beat->producer }} </strong></p>
-              <p class="text-light">Release Date: <strong>{{ $beat->released_date }} </strong></p>
-              <p class="text-light">Downloads: <strong>{{ $beat->downloads->count() }} </strong></p>
+              <p class="text-light">Release Date: <strong>{{ $beat->produced_date }} </strong></p>
+              <p class="text-light">Category: <strong>{{ $beat->category->name }} </strong></p>
+              <p class="text-light">Size: <strong>{{ $size }} MB </strong></p>
+              <p class="text-light">Downloads: <strong>{{ $beat->downloads_count }} </strong></p>
 
               <div class="row gap-y align-items-center text-center bg-light rounded p-5">
                 <div class="col-md-auto">

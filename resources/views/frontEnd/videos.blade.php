@@ -59,6 +59,7 @@
           </div>
         </div>
         @endforeach 
+        {{isset($vids) ? $vids->links() : '' }}
        @else
        @foreach ($videos as $v)
        <div class="col-md-4 col-xl-3 hover-shadow-1 mb-1">
@@ -82,6 +83,7 @@
         </div>
       </div>
        @endforeach  
+       {{ isset($videos) ? $videos->links() : '' }}
        @endif
 
      </div>

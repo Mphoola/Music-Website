@@ -22,10 +22,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('96/css/adminlte.min.css') }}">
+
+  <!-- toastr -->
+  <link rel="stylesheet" href="{{ asset('96/css/toastr.min.css') }}">
+
+  @yield('summernote-css')
   
 </head>
 <body class="hold-transition sidebar-mini">
-<div class="wrapper">
+<div class="wrapper" id="app">
 
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -236,7 +241,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         @endif
         @if (Auth::guard('admin')->user()->can('see posts'))
           <li class="nav-item">
-            <a href="#" class="nav-link  @if (Str::startsWith(Request::path(), 'management/blog') )
+            <a href="{{ route('blog-posts.index') }}" class="nav-link  @if (Str::startsWith(Request::path(), 'management/blog') )
                   active
               @endif">
               <i class="nav-icon fas fa-newspaper"></i>
@@ -311,7 +316,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
          
           @if (Auth::guard('admin')->user()->can('see logs'))
             <li class="nav-item">
-              <a href="#" class="nav-link">
+              <a href="{{ route('logs.index') }}" class="nav-link">
                 <i class="nav-icon fas fa-tasks"></i>
                 <p>
                   Activity Log
@@ -358,7 +363,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Main content -->
     <div class="content">
       <div class="container-fluid">
-        @include('partials.info')
+        {{-- @include('partials.info') --}}
         @yield('main-content')
 
         <!-- /.row -->
@@ -391,6 +396,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 <!-- AdminLTE App -->
 <script src="{{ asset('96/js/adminlte.min.js') }}"></script>
+
+@yield('scripts')
+<!-- toastr -->
+<script src="{{ asset('96/js/toastr.min.js') }}"></script>
+
+
+<script>
+  @if (Session::has('success'))
+    toastr.success('{{ session()->get('success') }}')
+  @endif
+  @if (Session::has('error'))
+    toastr.error('{{ session()->get('error') }}')
+  @endif
+</script>
 
 </body>
 </html>

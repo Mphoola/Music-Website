@@ -6,6 +6,8 @@
 
 @section('page-name')
 User Medias | {{ $user->name }}
+<a href="{{ route('logs.show.user', ['id' => $user->id, 'g' => 'User']) }}" 
+  class="btn btn-info btn-sm btn-round float-right">See Logs</a>
 @endsection
     
 @section('main-content')

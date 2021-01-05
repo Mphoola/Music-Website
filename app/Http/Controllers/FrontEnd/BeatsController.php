@@ -6,13 +6,15 @@ use App\Beat;
 use App\Category;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class BeatsController extends Controller
 {
     public function index(){
-        $beats = Beat::withCount('downloads', 'comments')->where('market', 'free')->paginate(8);
-        $most_downloads = Beat::withCount('downloads')->where('market', 'free')->orderBy('downloads_count', 'desc')->take(5)->get();
+        $beats = Beat::withCount('comments')
+            ->where('market', 'free')
+            ->orderBy('released_date', 'desc')
+            ->paginate(12);
+        $most_downloads = $this->most_donwloads();
         
         return view('frontEnd.beats')
             ->with('categories', Category::all())
@@ -22,27 +24,22 @@ class BeatsController extends Controller
 
     public function show($beat){
        
-        $beat = Beat::where('uuid', $beat)->firstOrFail();
-        $beat->load('downloads', 'comments');
-        $most_downloads = Beat::withCount('downloads')->where('market', 'free')->orderBy('downloads_count', 'desc')->take(5)->get();
+        $beat = Beat::findBeat($beat);
+        $size = $this->getFileSize($beat->location);
+        $beat->load('comments');
+        $most_downloads = $this->most_donwloads();
 
         return view('frontEnd.singleBeat')
             ->with('categories', Category::all())
             ->with('beat', $beat)
+            ->with('size', $size)
             ->with('most_downloads', $most_downloads);
     }
 
     public function download($id){
-        $b = Beat::where('uuid', $id)->firstOrFail();
+        $b = Beat::findBeat($id);
         
-        if($b){
-            $b->downloads()->create();
-            $loc = public_path().'/'. $b->location;
-       
-            // Storage::download($b->location, $name);
-           return response()->download($loc);
-        }
-           
+        return $this->downloadFile($b);    
     }
 
     public function comment(Request $request,$id){
@@ -60,13 +57,17 @@ class BeatsController extends Controller
 
     public function showByCategory(Category $category){
 
-        $bts = $category->beats;
+        $bts = $category->beats()->withCount('comments')->paginate(12);
 
-        $most_downloads = Beat::withCount('downloads')->where('market', 'free')->orderBy('downloads_count', 'desc')->take(5)->get();
+        $most_downloads = $this->most_donwloads();
         return view('frontEnd.beats')
             ->with('categories', Category::all())
             ->with('bts', $bts)
             ->with('most_downloads', $most_downloads)
             ->with('category', $category->name);
+    }
+
+    private function most_donwloads(){
+        return Beat::where('market', 'free')->orderBy('downloads_count', 'desc')->take(5)->get();
     }
 }

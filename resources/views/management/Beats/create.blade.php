@@ -71,7 +71,7 @@
         <div class="form-group">
             <label for="released_date">Released Date</label>
             <div class="input-group date" id="released_date">
-                <input type="date" class="form-control datetimepicker-input" value="{{ isset($beat) ? $beat->released_date :old('released_date') }}"
+                <input type="date" class="form-control datetimepicker-input" value="{{ isset($beat) ? $beat->released_date->toDateString() :old('released_date') }}"
                 class="@error('released_date') is-invalid @enderror" name="released_date">
             </div>
             @error('released_date')

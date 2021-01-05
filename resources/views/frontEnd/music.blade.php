@@ -55,6 +55,7 @@
             </div>
             </div>
             @endforeach
+            {{ isset($musics) ? $musics->links() : '' }}
         @else
             
           @foreach ($songs as $m)
@@ -79,6 +80,7 @@
           </div>
           </div>
           @endforeach
+          {{ isset($songs) ? $songs->links() : '' }}
         @endif       
      </div>
 </div>

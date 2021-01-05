@@ -19,10 +19,10 @@ use Intervention\Image\Facades\Image;
 class HomeController extends Controller
 {
     public function index(){
-        $music = Song::withCount('downloads', 'comments')->where('market', 'free')->take(8)->get();
-        $beats = Beat::withCount('downloads', 'comments')->where('market', 'free')->take(4)->get();
-        $vidios = Video::withCount('downloads', 'comments')->where('market', 'free')->where('verified', '1')->take(4)->get();
-        $most_downloads = Song::withCount('downloads')->where('market', 'free')->orderBy('downloads_count', 'desc')->get();
+        $music = Song::withCount( 'comments')->where('market', 'free')->orderBy('released_date', 'desc')->take(8)->get();
+        $beats = Beat::withCount( 'comments')->where('market', 'free')->orderBy('released_date', 'desc')->take(4)->get();
+        $vidios = Video::withCount( 'comments')->where('market', 'free')->orderBy('released_date', 'desc')->where('verified', '1')->take(4)->get();
+        $most_downloads = Song::where('market', 'free')->orderBy('downloads_count', 'desc')->take(5)->get();
         
         return view('frontEnd.welcome')
             ->with('categories', Category::all())
@@ -37,7 +37,7 @@ class HomeController extends Controller
     }
 
     public function myAudios(){
-        $songs = auth()->user()->songs->load('downloads', 'category');
+        $songs = auth()->user()->songs->load('category');
         
         return view('frontEnd.auth.myAudios')->with('songs', $songs);
     }
@@ -51,8 +51,8 @@ class HomeController extends Controller
         if($request->hasFile('song')){
             $songNameWithExt = request()->file('song')->getClientOriginalName();
             $songName = pathinfo($songNameWithExt, PATHINFO_FILENAME);
-            $extension = request()->file('song')->getClientOriginalExtension();
-            $songNameToStore = $songName.time().".".$extension;
+            $ext = request()->file('song')->getClientOriginalExtension();
+            $songNameToStore = $songName.time().".".$ext;
             request()->file('song')->move(base_path().'/public/Uploads/Audios', $songNameToStore);
         }
         if (request()->hasFile('cover_image')) {
@@ -81,6 +81,7 @@ class HomeController extends Controller
             'amount' => $amt,
             'cover_image' => 'Uploads/Cover_images/'. $picNameToStore,
             'location' => 'Uploads/Audios/'. $songNameToStore,
+            'extension' => $ext,
             'user_id' => Auth::id(),
             'uuid' => (string)\Uuid::generate(4),
         ]);
@@ -106,8 +107,8 @@ class HomeController extends Controller
         if($request->hasFile('video')){
             $videoNameWithExt = request()->file('video')->getClientOriginalName();
             $videoName = pathinfo($videoNameWithExt, PATHINFO_FILENAME);
-            $extension = request()->file('video')->getClientOriginalExtension();
-            $videoNameToStore = $videoName.time().".".$extension;
+            $ext = request()->file('video')->getClientOriginalExtension();
+            $videoNameToStore = $videoName.time().".".$ext;
             request()->file('video')->move(base_path().'/public/Uploads/Videos', $videoNameToStore);
         }
         if (request()->hasFile('cover_image')) {
@@ -136,6 +137,7 @@ class HomeController extends Controller
             'amount' => $amt,
             'cover_image' => 'Uploads/Cover_images/'. $picNameToStore,
             'location' => 'Uploads/videos/'. $videoNameToStore,
+            'extension' => $ext,
             'user_id' => Auth::id(),
             'uuid' => (string)\Uuid::generate(4),
         ]);
@@ -164,8 +166,8 @@ class HomeController extends Controller
         if($request->hasFile('beat')){
             $beatNameWithExt = request()->file('beat')->getClientOriginalName();
             $beatName = pathinfo($beatNameWithExt, PATHINFO_FILENAME);
-            $extension = request()->file('beat')->getClientOriginalExtension();
-            $beatNameToStore = $beatName.time().".".$extension;
+            $ext = request()->file('beat')->getClientOriginalExtension();
+            $beatNameToStore = $beatName.time().".".$ext;
             request()->file('beat')->move(base_path().'/public/Uploads/Beats', $beatNameToStore);
         }
         if (request()->hasFile('cover_image')) {
@@ -193,6 +195,7 @@ class HomeController extends Controller
             'amount' => $amt,
             'cover_image' => 'Uploads/Cover_images/'. $picNameToStore,
             'location' => 'Uploads/Beats/'. $beatNameToStore,
+            'extension' => $ext,
             'user_id' => Auth::id(),
             'uuid' => (string)\Uuid::generate(4),
             

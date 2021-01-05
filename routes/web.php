@@ -27,7 +27,7 @@ Route::get('management/login', 'Admin\Auth\AuthenticationController@loginPage')
 Route::post('management/login', 'Admin\Auth\AuthenticationController@login')->name('dashboard.login');
 Route::post('management/logout', 'Admin\Auth\AuthenticationController@logout')->name('dashboard.logout');
 
-Route::group(['middleware' => ['IsAdmin']], function () {
+Route::group(['middleware' => ['IsAdmin', 'ActivityLogGuard']], function () {
     
     //password expired
     Route::get('management/password/expired', 'Admin\Auth\AuthenticationController@expired')
@@ -69,6 +69,7 @@ Route::group(['middleware' => ['IsAdmin']], function () {
         Route::put('/song/{id}/update', 'Admin\SongsController@update')->name('songs.update');
         Route::get('/songs/upload', 'Admin\SongsController@create')->name('songs.create');
         Route::post('/songs/upload', 'Admin\SongsController@upload')->name('songs.upload');
+        Route::delete('/songs/delete/{id}', 'Admin\SongsController@delete')->name('songs.delete');
     
         //videos
         Route::get('/videos', 'Admin\VideosController@index')->name('videos.index');
@@ -77,6 +78,7 @@ Route::group(['middleware' => ['IsAdmin']], function () {
         Route::put('/video/{id}/update', 'Admin\VideosController@update')->name('videos.update');
         Route::get('/videos/upload', 'Admin\VideosController@create')->name('videos.create');
         Route::post('/videos/upload', 'Admin\VideosController@upload')->name('videos.upload');
+        Route::delete('/videos/delete/{id}', 'Admin\VideosController@delete')->name('videos.delete');
 
         //beats
         Route::get('/beats', 'Admin\BeatsController@index')->name('beats.index');
@@ -85,6 +87,18 @@ Route::group(['middleware' => ['IsAdmin']], function () {
         Route::put('/beat/{id}/update', 'Admin\BeatsController@update')->name('beats.update');
         Route::get('/beats/upload', 'Admin\BeatsController@create')->name('beats.create');
         Route::post('/beats/upload', 'Admin\BeatsController@upload')->name('beats.upload');
+        Route::post('/beats/upload', 'Admin\BeatsController@upload')->name('beats.upload');
+        Route::delete('/beats/delete/{id}', 'Admin\BeatsController@delete')->name('beats.delete');
+
+        //blog posts
+        Route::get('/blog-posts/trashed', 'Admin\PostsController@trashed')->name('blog-posts.trashed');
+        Route::get('/blog-posts/trash/{id}', 'Admin\PostsController@trash')->name('blog-posts.trash');
+        Route::get('/blog-posts/restore/{id}', 'Admin\PostsController@restore')->name('blog-posts.restore');
+        Route::resource('/blog-posts', 'Admin\PostsController');
+
+        //activity logs
+        Route::get('/activity-logs', 'Admin\LogsController@index')->name('logs.index');
+        Route::get('/activity-logs/{id}/user/type/{g}', 'Admin\LogsController@user_logs')->name('logs.show.user');
     });
 
 });
@@ -128,12 +142,22 @@ Route::get('/store/cart-content/{id}/add_quantity', 'CartController@cart_incr_qt
 Route::get('/store/cart-content/{id}/reduce_quantity', 'CartController@cart_decr_qty')->name('cart.decr.item');
 Route::get('/store/cart-content/remove/{id}', 'CartController@remove_from_cart')->name('cart.remove.item');
 
-Route::get('/store/cart-checkout/all}', 'CheckoutController@index')->name('cart.checkout');
-Route::post('/store/cart-checkout/all}', 'CheckoutController@pay')->name('cart.pay');
+//checkout
+Route::get('/store/cart-checkout/all', 'CheckoutController@index')->name('cart.checkout');
+Route::get('/store/cart-checkout/zachangu/error', 'CheckoutController@zachanguError')->name('cart.checkout.zachangu.error');
+Route::get('/store/cart-checkout/zachangu/success', 'CheckoutController@zachanguSuccess')->name('cart.checkout.zachangu.success');
+Route::post('/store/cart-checkout/all', 'CheckoutController@pay')->name('cart.pay');
+
+//blog
+Route::get('/blog', 'FrontEnd\BlogsController@index')->name('blogs.index');
+Route::get('/blog/{slug}/show', 'FrontEnd\BlogsController@show')->name('blogs.show');
+Route::post('/blog/{slug}/comment', 'FrontEnd\BlogsController@comment')->name('blogs.comment');
 
 Route::get('/empty', function () {
     return \Cart::clear();
 });
+Route::get('video', 'YouController@index');
+Route::post('video', 'YouController@store')->name('video');
 
 //logged in users
 Route::group(['middleware' => ['auth']], function () {

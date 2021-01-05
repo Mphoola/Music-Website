@@ -45,6 +45,11 @@
         </div>
         <!-- /.card-body -->
       </div>
+      <div class="card-footer clearfix">
+        <ul class="pagination pagination-sm m-0 float-right">
+          {{ $videos->links() }}
+        </ul>
+      </div>
       <!-- /.card -->
     </div>
 </div>

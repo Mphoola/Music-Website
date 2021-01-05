@@ -65,7 +65,7 @@
                 </p>
                 <p class="d-flex flex-column text-right">
                   <span class="font-weight-bold">
-                    {{ $beat->downloads->count() }}
+                    {{ $beat->downloads_count }}
                   </span>
                 </p>
               </div>
@@ -101,11 +101,11 @@
               </div>
               <div class="d-flex justify-content-between border-bottom mb-2">
                 <p class="">
-                    <span class="text-muted">Likes</span>
+                    <span class="text-muted">Size</span>
                 </p>
                 <p class="d-flex flex-column text-right">
                   <span class="font-weight-bold">
-                    {{ 3 }}
+                    {{ $size }} MB
                   </span>
                 </p>
               </div>
@@ -126,7 +126,27 @@
     </div>
 </div>
 <div class="col-12 mt-3">
-    <a href="{{ route('beats.edit', $beat->id) }}" class="btn btn-success btn-block btn-round btn-hover text-white">Edit Details</a>
-    <a class="btn btn-danger btn-block btn-round btn-hover mb-1 text-white">Delete the beat</a>
-</div>
+    <a href="{{ route('beats.edit', $beat->id) }}" class="btn btn-success btn-block btn-round btn-hover text-white m-2">Edit Details</a>
+    <form id="deleteForm" action="{{ route('beats.delete', $beat->id) }}" method="post">
+      @csrf
+      @method("DELETE")
+      
+    </form>
+    <button data-toggle="modal" data-target="#deleteModal" class="btn btn-danger btn-block btn-round btn-hover mb-1 text-white">Delete the beat</button>
+  </div>
+@include('partials.deleteModal')
 @endsection
+
+
+@section('scripts')
+    
+<script src="{{ asset('js/za.js') }}"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+    $('#delete').on('click',function(){
+      $('#deleteForm').submit();      
+		});
+	});
+  
+</script>
+  @endsection

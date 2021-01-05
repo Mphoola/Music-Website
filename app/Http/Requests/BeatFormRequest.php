@@ -29,7 +29,7 @@ class BeatFormRequest extends FormRequest
             'title' => 'required',
             'producer' => 'required',
             'category_id' => 'required',
-            'released_date' => 'required|date|before:now',
+            'released_date' => 'required|date|before:today',
         ];
         if(request()->method() == 'POST'){
             $rules += [

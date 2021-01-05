@@ -35,13 +35,18 @@
                 <div class="d-flex flex-row">
 
                 
-                  <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-round btn-xs btn-success mx-1">Edit</a>
-                
-                  <button type="submit" class="btn btn-round btn-xs btn-danger mx-1"
-                  data-id="{{ $category->id }}" data-action="{{ route('categories.destroy', $category->id) }}"
-                  onclick="deleteConfirmation({{ $category->id }})">Delete</button>
-                  
+                  <button id="editBtn" class="btn btn-round btn-xs btn-success mx-1"
+                  data-toggle="modal" data-target="#editModal" value="{{ $category->id }}">Edit</button>
+
                   <a href="{{ route('categories.show', $category->id) }}" class="btn btn-round btn-xs btn-primary mx-1">Show Songs</a>
+              
+                  <form id="deleteForm" action="{{ route('categories.destroy', $category->id) }}" method="post">
+                    @csrf
+                    @method("DELETE")
+                    <button type="submit" class="btn btn-round btn-xs btn-danger mx-1"
+                  >Delete</button>
+                  </form>
+                  
                 </div>
               </td>
             </tr>
@@ -53,7 +58,9 @@
       </table>
     </div>
 
-    <!-- /.card-body -->
+    <!-- /.Delete card -->
+    
+
     <div class="modal fade" id="modal-default">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -85,5 +92,20 @@
     <!-- /.modal -->
   </div>
 
+ 
+  <!-- /.modal -->
+
   
 @endsection
+
+@section('scripts')
+<script src="{{ asset('js/za.js') }}"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('#deleteModal').on('click',function(){
+			console.log('hie');
+			$('#deleteForm').submit();
+		});
+	});
+
+</script>

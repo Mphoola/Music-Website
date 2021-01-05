@@ -19,9 +19,10 @@
         "laravel/framework": "^7.24",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.4",
+        "spatie/laravel-activitylog": "^3.16",
         "spatie/laravel-permission": "^3.18",
-        "webdevetc/blogetc": "^8.4",
-        "webpatser/laravel-uuid": "^4.0"
+        "webpatser/laravel-uuid": "^4.0",
+        "yajra/laravel-datatables": "^1.5"
     },
     "require-dev": {
         "facade/ignition": "^2.0",

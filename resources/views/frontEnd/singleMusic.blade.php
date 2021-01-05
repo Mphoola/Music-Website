@@ -35,8 +35,10 @@
               <p class="text-light">Title: <strong>{{ $song->title }} </strong></p>
               <p class="text-light">Artist: <strong>{{ $song->artist }} </strong></p>
               <p class="text-light">Producer: <strong>{{ $song->producer }} </strong></p>
-              <p class="text-light">Release Date: <strong>{{ $song->released_date }} </strong></p>
-              <p class="text-light">Downloads: <strong>{{ $song->downloads->count() }} </strong></p>
+              <p class="text-light">Category: <strong>{{ $song->category->name }} </strong></p>
+              <p class="text-light">Release Date: <strong>{{ $song->produced_date }} </strong></p>
+              <p class="text-light">Size: <strong>{{ $size }} MB </strong></p>
+              <p class="text-light">Downloads: <strong>{{ $song->downloads_count }} </strong></p>
 
               <div class="row gap-y align-items-center text-center bg-light rounded p-5">
                 <div class="col-md-auto">
