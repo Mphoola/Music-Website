@@ -20,7 +20,9 @@
         <thead>                  
           <tr>
             <th>Name</th>
-            <th style="width: 30%">Number of songs</th>
+            <th style="">Beats Count</th>
+            <th style="">Songs Count</th>
+            <th style="">Videos Count</th>
             <th colspan="3">Action</th>
           </tr>
         </thead>
@@ -32,19 +34,25 @@
                 {{ $category->songs_count }}
               </td>
               <td>
+                {{ $category->beats_count }}
+              </td>
+              <td>
+                {{ $category->videos_count }}
+              </td>
+              <td>
                 <div class="d-flex flex-row">
 
                 
-                  <button id="editBtn" class="btn btn-round btn-xs btn-success mx-1"
-                  data-toggle="modal" data-target="#editModal" value="{{ $category->id }}">Edit</button>
+                  <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-round btn-xs btn-success mx-1"
+                   >Edit</a>
 
-                  <a href="{{ route('categories.show', $category->id) }}" class="btn btn-round btn-xs btn-primary mx-1">Show Songs</a>
+                  <a href="{{ route('categories.show', $category->id) }}" class="btn btn-round btn-xs btn-primary mx-1">Show More</a>
               
                   <form id="deleteForm" action="{{ route('categories.destroy', $category->id) }}" method="post">
                     @csrf
                     @method("DELETE")
                     <button type="submit" class="btn btn-round btn-xs btn-danger mx-1"
-                  >Delete</button>
+                      >Delete</button>
                   </form>
                   
                 </div>
@@ -58,54 +66,41 @@
       </table>
     </div>
 
-    <!-- /.Delete card -->
-    
-
-    <div class="modal fade" id="modal-default">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h4 class="modal-title">Add new Category</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <form role="form" action="{{ route('categories.store') }}" method="POST">
-              @csrf
-                <div class="form-group">
-                  <label for="name">Name</label>
-                  <input type="text" class="form-control" name="name" placeholder="Enter category name"
-                  required minlength="3">
-                </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-success">Save</button>
-          </div>
-        </form>
-        </div>
-        <!-- /.modal-content -->
-      </div>
-      <!-- /.modal-dialog -->
-    </div>
     <!-- /.modal -->
   </div>
 
- 
+  <div class="modal fade" id="modal-default">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">New Category</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form role="form" action="{{ route('categories.store') }}" method="POST" >
+            @csrf
+    
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" name="name" placeholder="Enter name here"
+                required minlength="3">
+              </div>
+              
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-success">Save</button>
+        </div>
+      </form>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div
   <!-- /.modal -->
 
   
 @endsection
 
-@section('scripts')
-<script src="{{ asset('js/za.js') }}"></script>
-<script type="text/javascript">
-	$(document).ready(function(){
-		$('#deleteModal').on('click',function(){
-			console.log('hie');
-			$('#deleteForm').submit();
-		});
-	});
-
-</script>

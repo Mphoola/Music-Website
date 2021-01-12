@@ -67,7 +67,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Africa/Maputo',
 
     /*
     |--------------------------------------------------------------------------
@@ -175,11 +175,14 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        App\Providers\AdvertServiceProvider::class,
+
         Intervention\Image\ImageServiceProvider::class,
         Darryldecode\Cart\CartServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
         Dawson\Youtube\YoutubeServiceProvider::class,
-        Yajra\DataTables\DataTablesServiceProvider::class
+        Yajra\DataTables\DataTablesServiceProvider::class,
+
 
     ],
 
@@ -236,7 +239,10 @@ return [
         'Cart' => Darryldecode\Cart\Facades\CartFacade::class,
         'Uuid' => \Webpatser\Uuid\Uuid::class,
         'Youtube' => Dawson\Youtube\Facades\Youtube::class,
-        'Datatables' => Yajra\DataTables\Facades\Datatables::class
+        'Datatables' => Yajra\DataTables\Facades\Datatables::class,
+
+        'GetAdvert' => App\Facades\AdvertFacade::class,
+
     ],
 
 ];

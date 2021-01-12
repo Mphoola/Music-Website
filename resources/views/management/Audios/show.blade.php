@@ -21,8 +21,12 @@
 </div>
 <div class="row">
     <div class="col-mb-6 mb-1 justify-content-center">
-      <img src="{{ asset($song->cover_image) }}" alt="{{ __('Cover Image') }}" width="450px" height="435px"
-      class="img-responsive rounded mx-3">
+      
+          <img src="{{ asset($song->cover_image) }}" alt="{{ __('Cover Image') }}"
+          width="450px" height="435px"
+      class="img-fluid pl-2 pr-1 img-fadein img-rounded">
+        
+      
     </div>
     <div class="col-md-6">
         <div class="card">
@@ -142,7 +146,7 @@
       
     </form>
     <button data-toggle="modal" data-target="#deleteModal" 
-      class="btn btn-danger btn-block btn-round btn-hover mb-1 text-white">Delete the Song</button>
+      class="btn btn-danger btn-block btn-round btn-hover my-3 text-white">Delete the Song</button>
 </div>
 @include('partials.deleteModal')
 @endsection

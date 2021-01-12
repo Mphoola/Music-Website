@@ -11,6 +11,7 @@
             <div class="col-lg-8 mx-auto">
             <h1>Malawian <span class="text-primary" data-typing=" Trending, Lattest, Music , Videos, Beats"></span></h1>
             <p class="lead-2 mt-5">Any music, video or beats of your choice is here</p>
+            
             </div>
         </div>
         </div>
@@ -147,7 +148,7 @@
 
       <h6 class="sidebar-title">Most Downloads</h6>
       @foreach ($most_downloads as $d)
-        <a class="media text-default align-items-center mb-5" href="blog-single.html">
+        <a class="media text-default align-items-center mb-5" href="{{ route('frontend.music.show', $d->uuid) }}">
           <img class="rounded w-65px mr-4" src="{{ asset($d->cover_image) }}">
           <p class="media-body small-2  mb-0">{{ $d->downloads_count }} <i class="fa fa-download"></i></p>
           <p class="media-body small-2  mb-0">{{ $d->title }}</p>
@@ -155,7 +156,12 @@
       @endforeach
 
       <hr>
-
+      <p>
+        {{ GetAdvert::displayAdvert($type) }}
+      </p>
+      <p>
+        {{ GetAdvert::displayAdvert($type) }}
+      </p>
 
 
     </div>
@@ -166,8 +172,8 @@
 <section class="section p-0 bg-gray">
     <h3 class='text-capitalize text-center'>Best of all time</h3>
      <div data-provide="slider" data-autoplay="true" data-slides-to-show="6" data-css-ease="linear" data-speed="12000" data-autoplay-speed="0" data-pause-on-hover="true">
-      @foreach ($most_downloads as $d)
-      <a href="">
+      @foreach ($musics as $d)
+      <a href="{{ route('frontend.music.show', $d->uuid) }}">
         <div class="p-2">
             <div class="rounded bg-img h-200 " style="background-image: url({{ asset($d->cover_image) }});"></div>
             {{ $d->full_details }}

@@ -18,7 +18,7 @@ $factory->define(Video::class, function (Faker $faker) {
         'location' => 'seeder/vid.mp4',
         'extension' => 'mp4',
         'verified' => true, 
-        'u_name' => Admin::all()->random()->name,
+        'admin_id' => Admin::all()->random()->id,
         'released_date' => $faker->dateTimeThisYear(now()),
         'market' => $faker->randomElement(['free', 'sale']),
         'amount' => 100,

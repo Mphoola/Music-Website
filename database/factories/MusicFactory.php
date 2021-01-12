@@ -17,7 +17,7 @@ $factory->define(Song::class, function (Faker $faker) {
         'cover_image' => 'seeder/'.random_int(1,4).'.jpg',
         'location' => 'seeder/sound.mp3',
         'extension' => 'mp3',
-        'u_name' => Admin::all()->random()->name,
+        'admin_id' => Admin::all()->random()->id,
         'released_date' => $faker->dateTimeThisYear(now()),
         'market' => $faker->randomElement(['free', 'sale']),
         'amount' => 100,

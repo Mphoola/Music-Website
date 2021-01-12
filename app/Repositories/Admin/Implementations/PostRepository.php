@@ -39,7 +39,6 @@ class PostRepository implements PostInterface{
             'description' => $data['description'],
             'content' => $data['content'],
             'published_at' => $data['published_at'],
-            'category_id' => $data['category'],
             'image' => 'Uploads/Blog_images/'. $picNameToStore,
             'author_id' => auth()->guard('admin')->user()->id
         ]);

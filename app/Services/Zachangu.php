@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-class zachangu{
+class Zachangu{
     var $success_url='http://wgithost.xyz/za/success.php';
     var $error_url='http://wgithost.xyz/za/error.php';
     var $service_cost=100;

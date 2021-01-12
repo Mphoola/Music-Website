@@ -19,12 +19,13 @@
   <div class=" mb-3 col-12 mb-1">
     <h3 class="font-weight-bold">Watch it</h3>
     
-   <div class="">
-    <video  controls class="" style="margin-left: auto">
+   
+    <video  controls class="" style="width: 100%; hieght: 100%">
       <source src="{{ asset($video->location) }}" type="video/mp4">
       Your browser does not support HTML5 video.
     </video>
-   </div>
+   
+   
 </div>
     <div class="col-12">
         <div class="card">
@@ -145,7 +146,7 @@
           
         </form>
         <button data-toggle="modal" data-target="#deleteModal" 
-            class="btn btn-danger btn-block btn-round btn-hover mb-1 text-white">Delete the Video</button>
+          class="btn btn-danger btn-block btn-round btn-hover my-3 text-white">Delete the beat</button>
 </div>
 @include('partials.deleteModal')
 @endsection

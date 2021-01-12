@@ -22,7 +22,7 @@ class CreateBeatsTable extends Migration
             $table->string('extension');
             $table->unsignedInteger('user_id')->nullable();
             $table->unsignedBigInteger('downloads_count')->default('0');
-            $table->string('u_name')->nullable();
+            $table->unsignedBigInteger('admin_id')->nullable();
             $table->date('released_date');
             $table->string('cover_image');
             $table->enum('market', ['free', 'sale']);

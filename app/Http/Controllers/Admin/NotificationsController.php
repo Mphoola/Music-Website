@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Beat;
 use App\Http\Controllers\Controller;
+use App\Song;
 use App\Video;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,10 +16,25 @@ class NotificationsController extends Controller
         return view('management.notifications.index', compact('notifications'));
     }
 
-    public function show($id, $v){
+    public function show($id, $m, $t){
         Auth::guard('admin')->user()->unReadNotifications->where('id', $id)->markAsRead();
-        $video = Video::findOrFail($v);
-        return view('management.notifications.show')->with('video', $video);
+        if($t == 'video'){
+            $video = Video::findOrFail($m);
+            return view('management.notifications.show')->with('video', $video);
+        }
+
+        if($t == 'song'){
+        
+            $song = Song::findOrFail($m)->load('category', 'comments');
+            $size = $this->getFileSize($song->location);
+            return view('management.audios.show', compact('song', 'size'));
+        }
+
+        if($t == 'beat'){
+            $beat = Beat::findOrFail($m);
+            $size = $this->getFileSize($beat->location);
+            return view('management.beats.show', compact('beat', 'size'));
+        }
     }
 
     public function markAsRead($id){

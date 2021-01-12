@@ -22,7 +22,7 @@
 <div class="row">
     <div class="col-mb-6 mb-1 justify-content-center">
       <img src="{{ asset($beat->cover_image) }}" alt="{{ __('Cover Image') }}" width="450px" height="435px"
-      class="img-responsive rounded mx-3">
+      class="img-fluid pl-2 pr-1 img-fadein img-rounded">
     </div>
     <div class="col-md-6">
         <div class="card">
@@ -126,13 +126,13 @@
     </div>
 </div>
 <div class="col-12 mt-3">
-    <a href="{{ route('beats.edit', $beat->id) }}" class="btn btn-success btn-block btn-round btn-hover text-white m-2">Edit Details</a>
+    <a href="{{ route('beats.edit', $beat->id) }}" class="btn btn-success btn-block btn-round btn-hover text-white">Edit Details</a>
     <form id="deleteForm" action="{{ route('beats.delete', $beat->id) }}" method="post">
       @csrf
       @method("DELETE")
       
     </form>
-    <button data-toggle="modal" data-target="#deleteModal" class="btn btn-danger btn-block btn-round btn-hover mb-1 text-white">Delete the beat</button>
+    <button data-toggle="modal" data-target="#deleteModal" class="btn btn-danger btn-block btn-round btn-hover my-3 text-white">Delete the beat</button>
   </div>
 @include('partials.deleteModal')
 @endsection

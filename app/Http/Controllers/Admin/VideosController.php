@@ -8,7 +8,7 @@ use App\Http\Requests\VideoFormRequest;
 use App\Repositories\Admin\Implementations\videoRepository;
 use App\Video;
 
-class videosController extends Controller
+class VideosController extends Controller
 {
     private $videoRepository;
     public function __construct(videoRepository $videoRepository)

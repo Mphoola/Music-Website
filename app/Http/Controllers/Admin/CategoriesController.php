@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Category;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class CategoriesController extends Controller
@@ -17,7 +18,7 @@ class CategoriesController extends Controller
     public function index()
     {
         return view('management.categories.index')
-            ->with('categories', Category::withCount('songs')->get());
+            ->with('categories', Category::withCount('songs', 'beats', 'videos')->get());
     }
 
     /**
@@ -58,9 +59,15 @@ class CategoriesController extends Controller
      */
     public function show($id)
     {
-        $cat = Category::findOrFail($id)->load('songs');
+        $cat = Category::findOrFail($id)->load('songs', 'beats', 'videos');
+        $songs = DB::table('songs')->where('category_id', $cat->id)->paginate(10);
+        $beats = DB::table('beats')->where('category_id', $cat->id)->paginate(10);
+        $videos = DB::table('videos')->where('category_id', $cat->id)->paginate(10);
         return view('management.categories.show')
-            ->with('category', $cat);
+            ->with('category', $cat)
+            ->with('songs', $songs)
+            ->with('beats', $beats)
+            ->with('videos', $videos);
     }
 
     /**
@@ -71,7 +78,7 @@ class CategoriesController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('management.categories.edit')->with('category', Category::findOrFail($id));
     }
 
     /**
@@ -83,7 +90,14 @@ class CategoriesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'name' => 'unique:categories,name'
+        ]);
+        $cat = Category::findOrFail($id)->update([
+            'name' => $request->name,
+            'slug' => Str::slug($request->name)
+        ]);
+        return redirect()->route('categories.index')->with('success', 'Category updated');
     }
 
     /**

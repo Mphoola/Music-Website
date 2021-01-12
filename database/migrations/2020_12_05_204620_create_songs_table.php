@@ -21,7 +21,7 @@ class CreateSongsTable extends Migration
             $table->unsignedInteger('category_id');
             $table->unsignedInteger('user_id')->nullable();
             $table->unsignedBigInteger('downloads_count')->default('0');
-            $table->string('u_name')->nullable();
+            $table->unsignedBigInteger('admin_id')->nullable();
             $table->string('location');
             $table->string('extension');
             $table->date('released_date');

@@ -6,8 +6,14 @@
     
 @section('breadcrumb')
     <ol class="breadcrumb float-sm-right">
-        <li class="breadcrumb-item"><a href="{{ route('list_admins') }}">Admins</a></li>
-        <li class="breadcrumb-item"><a href="{{ route('list_admins') }}">User Details</a></li>
+        @if ($type == 'admin')
+          <li class="breadcrumb-item"><a href="{{ route('list_admins') }}">Admins</a></li>
+          <li class="breadcrumb-item"><a href="{{ route('list_permissions', $user->id) }}">Admin Details</a></li>
+        @else
+          <li class="breadcrumb-item"><a href="{{ route('list_users') }}">Users</a></li>
+          <li class="breadcrumb-item"><a href="{{ route('list_user_media', $user->id) }}">User Details</a></li>
+        @endif
+        
         <li class="breadcrumb-item active">Logs</li>
     </ol>
 @endsection

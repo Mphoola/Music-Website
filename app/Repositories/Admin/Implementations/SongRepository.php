@@ -48,7 +48,7 @@ class SongRepository implements SongInterface{
             'location' => 'Uploads/Beats/'. $songNameToStore,
             'extension' => $song_extension,
             'uuid' => (string)\Webpatser\Uuid\Uuid::generate(4),
-            'u_name' => Auth::guard('admin')->user()->name
+            'admin_id' => Auth::guard('admin')->user()->id
             
         ]);
 

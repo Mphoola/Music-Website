@@ -7,7 +7,7 @@ use App\Video;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller as globalMethods;
 
-class videoRepository implements VideoInterface{
+class VideoRepository implements VideoInterface{
 
     public function all(){
         return Video::with('category')
@@ -48,7 +48,7 @@ class videoRepository implements VideoInterface{
             'location' => 'Uploads/Beats/'. $videoNameToStore,
             'extension' => $video_extension,
             'uuid' => (string)\Webpatser\Uuid\Uuid::generate(4),
-            'u_name' => Auth::guard('admin')->user()->name
+            'admin_id' => Auth::guard('admin')->user()->id
             
         ]);
 

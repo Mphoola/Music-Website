@@ -23,11 +23,11 @@ class CreateVideosTable extends Migration
             $table->string('extension');
             $table->unsignedInteger('user_id')->nullable();
             $table->unsignedBigInteger('downloads_count')->default('0');
-            $table->string('u_name')->nullable();
+            $table->unsignedBigInteger('admin_id')->nullable();
             $table->date('released_date');
             $table->string('cover_image');
             $table->boolean('verified')->default(false);
-            $table->string('verified_by')->nullable();
+            $table->unsignedBigInteger('verified_by')->nullable();
             $table->enum('market', ['free', 'sale']);
             $table->unsignedBigInteger('amount')->default('0');
             $table->uuid('uuid')->nullable();

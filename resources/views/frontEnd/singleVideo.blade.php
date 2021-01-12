@@ -27,7 +27,7 @@
       <div class="row">
 
         <div class="col-12">
-            <video  controls width="1000px" class="" style="margin-top: -30px">
+            <video  controls width="100%" class="" style="margin-top: -30px">
                 <source src="{{ asset($video->location) }}" type="video/mp4">
                 Your browser does not support HTML5 video.
               </video>
@@ -37,7 +37,7 @@
 
        <div class="row" style="">
 
-         <div class="col-6  col-md-5 ">
+         <div class="col-12  col-md-5 ">
           <p class="text-light mt-3">Title: <strong>{{ $video->title }} </strong></p>
           <p class="text-light">Artist: <strong>{{ $video->artist }} </strong></p>
           <p class="text-light">Producer: <strong>{{ $video->producer }} </strong></p>
@@ -47,7 +47,7 @@
           <p class="text-light">Downloads: <strong>{{ $video->downloads_count }} </strong></p>
          </div>
 
-         <div class="col-6  col-md-7">
+         <div class="col-12  col-md-7">
            
 
            <div class=" align-items-center text-center bg-light rounded p-5">

@@ -17,14 +17,17 @@ class LogsController extends Controller
     public function user_logs($id, $g){
         if($g == 'Admin'){
             $user = Admin::findOrFail($id);
+            $type = 'admin';
             $logs = $user->actions;
         }elseif($g == 'User'){
+            $type = 'user';
             $user = User::findOrFail($id);
             $logs = $user->actions;
         }
         
         return view('management.logs.user_logs')
             ->with('logs', $logs)
-            ->with('user', $user);
+            ->with('user', $user)
+            ->with('type', $type);
     }
 }

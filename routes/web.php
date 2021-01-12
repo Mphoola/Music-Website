@@ -2,23 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-use Darryldecode\Cart\Cart;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
 Route::get('/', function () {
     return view('frontEnd.welcome');
 });
-
+Route::get('/users', 'UsersController@index')->name('users.index');
 Auth::routes();
 
 
@@ -44,7 +32,7 @@ Route::group(['middleware' => ['IsAdmin', 'ActivityLogGuard']], function () {
 
         //notifications
         Route::get('notifications', 'Admin\NotificationsController@index')->name('notifications');
-        Route::get('notifications/{id}/view-single-notification/{v}', 'Admin\NotificationsController@show')->name('notifications.show');
+        Route::get('notifications/{id}/view-single-notification/{v}/type/{t}', 'Admin\NotificationsController@show')->name('notifications.show');
         Route::get('notifications/{id}/mark-as-read/', 'Admin\NotificationsController@markAsRead')->name('notifications.markAsRead');
         Route::get('notifications/mark-all-as-read', 'Admin\NotificationsController@markAllAsRead')->name('notifications.markAllAsRead');
         Route::get('notifications/{id}/delete-single-notification', 'Admin\NotificationsController@delete')->name('notifications.delete');
@@ -58,9 +46,18 @@ Route::group(['middleware' => ['IsAdmin', 'ActivityLogGuard']], function () {
         Route::post('/admins/create', 'Admin\UsersController@add_admin')->name('add_admin');
         Route::get('/admins/{id}/permissions', 'Admin\UsersController@list_permissions')->name('list_permissions');
         Route::put('/admins/{id}/permissions', 'Admin\UsersController@update_permissions')->name('update_permissions');
+        Route::get('my-profile/{id}', 'Admin\UsersController@my_profile')->name('my_profile');
+        Route::put('my-profile-update/{id}', 'Admin\UsersController@my_profile_update')->name('my_profile_update');
+        
 
         //categories
         Route::resource('categories', 'Admin\CategoriesController');
+
+        //advert management
+        Route::resource('advert_categories', 'Admin\AdvertCategoryController');
+        Route::resource('advert', 'Admin\AdvertController');
+        
+
 
         //audios
         Route::get('/songs', 'Admin\SongsController@index')->name('songs.index');
@@ -152,6 +149,10 @@ Route::post('/store/cart-checkout/all', 'CheckoutController@pay')->name('cart.pa
 Route::get('/blog', 'FrontEnd\BlogsController@index')->name('blogs.index');
 Route::get('/blog/{slug}/show', 'FrontEnd\BlogsController@show')->name('blogs.show');
 Route::post('/blog/{slug}/comment', 'FrontEnd\BlogsController@comment')->name('blogs.comment');
+
+//advert redirect url
+Route::get('marketing-with-96legacy/{id}/redirect/vendor/site', 'Admin\AdvertController@redirect')
+        ->name('redirect-to-vendor-site');
 
 Route::get('/empty', function () {
     return \Cart::clear();

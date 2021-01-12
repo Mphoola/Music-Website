@@ -37,7 +37,7 @@
             </div>
 
 
-            <div class="text-center my-8">
+            <div class="my-2">
                 <img class="rounded-md" src="{{ asset($post->image) }}" alt="...">
             </div>
 

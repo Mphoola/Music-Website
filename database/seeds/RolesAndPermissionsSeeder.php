@@ -41,9 +41,11 @@ class RolesAndPermissionsSeeder extends Seeder
         $permission = Permission::create(['guard_name' => 'admin', 'name' => 'change settings']);
 
         $permission = Permission::create(['guard_name' => 'admin', 'name' => 'add songs']);
+        $permission = Permission::create(['guard_name' => 'admin', 'name' => 'can be notified about songs']);
         $permission = Permission::create(['guard_name' => 'admin', 'name' => 'edit songs']);
 
         $permission = Permission::create(['guard_name' => 'admin', 'name' => 'edit beats']);
+        $permission = Permission::create(['guard_name' => 'admin', 'name' => 'can be notified about beats']);
         $permission = Permission::create(['guard_name' => 'admin', 'name' => 'add beats']);
 
         $permission = Permission::create(['guard_name' => 'admin', 'name' => 'add video']);
@@ -55,6 +57,7 @@ class RolesAndPermissionsSeeder extends Seeder
         $permission = Permission::create(['guard_name' => 'admin', 'name' => 'delete category']);
 
         $permission = Permission::create(['guard_name' => 'admin', 'name' => 'create advert']);
+        $permission = Permission::create(['guard_name' => 'admin', 'name' => 'can be notified about adverts']);
         $permission = Permission::create(['guard_name' => 'admin', 'name' => 'delete advert']);
 
         $permission = Permission::create(['guard_name' => 'admin', 'name' => 'see sales']);
