@@ -4,8 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Searchable\Searchable;
+use Spatie\Searchable\SearchResult;
 
-class Category extends Model
+class Category extends Model implements Searchable
 {
     use LogsActivity;
     protected static $logAttributes = ['name'];
@@ -13,7 +15,17 @@ class Category extends Model
 
     protected $fillable = ['name', 'slug'];
 
-    
+    public function getSearchResult(): SearchResult
+    {
+        $url = route('frontend.music.showByCategory', $this->slug);
+
+        return new SearchResult(
+            $this,
+            $this->name,
+            $url
+        );
+    }
+
     public function getRouteKeyName()
     {
         return 'slug';

@@ -92,12 +92,7 @@
     <div class="sidebar px-4 py-md-0 my-5">
 
       <h6 class="sidebar-title">Search</h6>
-      <form class="input-group" target="#" method="GET">
-        <input type="text" class="form-control" name="s" placeholder="Search">
-        <div class="input-group-addon">
-          <span class="input-group-text"><i class="fa fa-search"></i></span>
-        </div>
-      </form>
+      @include('partials.search')
 
       <hr>
 

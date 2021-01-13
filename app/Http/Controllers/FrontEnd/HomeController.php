@@ -24,6 +24,7 @@ class HomeController extends Controller
         $vidios = Video::withCount( 'comments')->where('market', 'free')->orderBy('released_date', 'desc')->where('verified', '1')->take(4)->get();
         $most_downloads = Song::where('market', 'free')->orderBy('downloads_count', 'desc')->take(5)->get();
         
+        
         $type = 'banner';
         return view('frontEnd.welcome')
             ->with('categories', Category::all())

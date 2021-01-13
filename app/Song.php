@@ -4,8 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Searchable\Searchable;
+use Spatie\Searchable\SearchResult;
 
-class Song extends Model
+class Song extends Model implements Searchable
 {
     use LogsActivity;
     protected static $logAttributes = ['title','user_id', 'u_name','amount'];
@@ -19,6 +21,17 @@ class Song extends Model
 
     protected $dates = ['released_date'];
 
+    public function getSearchResult(): SearchResult
+    {
+        $url = route('frontend.music.show', $this->uuid);
+
+        return new SearchResult(
+            $this,
+            $this->full_details,
+            $url
+        );
+    }
+    
     public function getFullDetailsAttribute(){
         return $this->artist . ' - ' . $this->title;
     }

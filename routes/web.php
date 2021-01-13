@@ -57,7 +57,8 @@ Route::group(['middleware' => ['IsAdmin', 'ActivityLogGuard']], function () {
         Route::resource('advert_categories', 'Admin\AdvertCategoryController');
         Route::resource('advert', 'Admin\AdvertController');
         
-
+        //search function
+        Route::get('/beat_search', 'Admin\SearchController@beat_search')->name('beat_search');
 
         //audios
         Route::get('/songs', 'Admin\SongsController@index')->name('songs.index');
@@ -159,6 +160,8 @@ Route::get('/empty', function () {
 });
 Route::get('video', 'YouController@index');
 Route::post('video', 'YouController@store')->name('video');
+
+Route::get('/search', 'SearchController@index')->name('search');
 
 //logged in users
 Route::group(['middleware' => ['auth']], function () {

@@ -67,7 +67,7 @@
           </a>
 
           <div class="product-detail">
-            <h6><a href="{{ route('frontend.beats.show', $b->uuid) }}">{{ $b->title }}</a></h6>
+            <h6><a href="{{ route('frontend.beats.show', $b->uuid) }}">{{ $b->full_details }}</a></h6>
             <div class='d-flex justify-content-between'>
               <div class="product-price">
                 {{ $b->downloads_count }} <i class='fa fa-download'></i>
@@ -100,7 +100,7 @@
           </a>
 
           <div class="product-detail">
-            <h6><a href="{{ route('frontend.videos.show', $v->uuid) }}">{{ $v->title }}</a></h6>
+            <h6><a href="{{ route('frontend.videos.show', $v->uuid) }}">{{ $v->full_details }}</a></h6>
             <div class='d-flex justify-content-between'>
               <div class="product-price">
                 {{ $v->downloads_count }} <i class='fa fa-download'></i>
@@ -127,12 +127,7 @@
     <div class="sidebar px-4 py-md-0 my-5">
 
       <h6 class="sidebar-title">Search</h6>
-      <form class="input-group" target="#" method="GET">
-        <input type="text" class="form-control" name="s" placeholder="Search">
-        <div class="input-group-addon">
-          <span class="input-group-text"><i class="fa fa-search"></i></span>
-        </div>
-      </form>
+      @include('partials.search')
 
       <hr>
 
