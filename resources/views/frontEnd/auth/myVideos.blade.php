@@ -55,7 +55,7 @@
                                   <td>{{ $video->title }}</td>
                                   <td>{{ $video->artist }}</td>
                                   <td>{{ $video->category->name }}</td>
-                                  <td>{{ $video->downloads->count() }}</td>
+                                  <td>{{ $video->downloads_count }}</td>
                                   <td>
                                       <a href="" class="btn btn-info btn-round btn-sm">View More</a>
                                   </td>

@@ -16,8 +16,13 @@ class CreateAdminsTable extends Migration
         Schema::create('admins', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('image')->default('96/images/bea.png')->nullable();
+            $table->text('bio')->nullable();
             $table->string('email')->unique();
             $table->string('password');
+            $table->datetime('last_login_at')->nullable();
+            $table->string('last_login_ip')->nullable();
+            $table->timestamp('password_changed_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

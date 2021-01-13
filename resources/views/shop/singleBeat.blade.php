@@ -41,7 +41,7 @@
                     </p>
                     <p class="product-details-info-text">
                         
-                        Downloads: {{ $beat->downloads->count() }}
+                        Downloads: {{ $beat->downloads_count }}
                     </p>
 
                     <form action="{{ route('cart.add') }}" method="post">

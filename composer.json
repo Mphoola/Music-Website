@@ -9,7 +9,9 @@
     "license": "MIT",
     "require": {
         "php": "^7.2.5",
+        "barryvdh/laravel-debugbar": "^3.5",
         "darryldecode/cart": "^4.2",
+        "dawson/youtube": "^6.0",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^6.3",
@@ -17,8 +19,10 @@
         "laravel/framework": "^7.24",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.4",
+        "laraveldaily/laravel-charts": "^0.1.25",
+        "spatie/laravel-activitylog": "^3.16",
         "spatie/laravel-permission": "^3.18",
-        "webdevetc/blogetc": "^8.4",
+        "spatie/laravel-searchable": "^1.9",
         "webpatser/laravel-uuid": "^4.0"
     },
     "require-dev": {

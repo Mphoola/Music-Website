@@ -2,31 +2,36 @@
 
 namespace App\Http\Controllers\FrontEnd;
 
+use App\Admin;
 use App\Beat;
 use App\Category;
+use App\Events\newBeatUploadedEvent;
+use App\Events\newsongUploadedEvent;
+use App\Events\newVideoUploadedEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\BeatFormRequest;
 use App\Http\Requests\SongFormRequest;
 use App\Http\Requests\VideoFormRequest;
 use App\Song;
 use App\Video;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Intervention\Image\Facades\Image;
 
 class HomeController extends Controller
 {
     public function index(){
-        $music = Song::withCount('downloads', 'comments')->take(8)->get();
-        $beats = Beat::withCount('downloads', 'comments')->take(4)->get();
-        $vidios = Video::withCount('downloads', 'comments')->take(4)->get();
-        $most_downloads = Song::withCount('downloads')->orderBy('downloads_count', 'desc')->take(5)->get();
+        $music = Song::withCount( 'comments')->where('market', 'free')->orderBy('released_date', 'desc')->take(8)->get();
+        $beats = Beat::withCount( 'comments')->where('market', 'free')->orderBy('released_date', 'desc')->take(4)->get();
+        $vidios = Video::withCount( 'comments')->where('market', 'free')->orderBy('released_date', 'desc')->where('verified', '1')->take(4)->get();
+        $most_downloads = Song::where('market', 'free')->orderBy('downloads_count', 'desc')->take(5)->get();
         
+        
+        $type = 'banner';
         return view('frontEnd.welcome')
             ->with('categories', Category::all())
             ->with('musics', $music)
             ->with('beats', $beats)
             ->with('videos', $vidios)
+            ->with('type', $type)
             ->with('most_downloads', $most_downloads);
     }
     
@@ -35,7 +40,7 @@ class HomeController extends Controller
     }
 
     public function myAudios(){
-        $songs = auth()->user()->songs;
+        $songs = auth()->user()->songs->load('category');
         
         return view('frontEnd.auth.myAudios')->with('songs', $songs);
     }
@@ -45,25 +50,15 @@ class HomeController extends Controller
     }
 
     public function myAudioUpload(SongFormRequest $request){
-        
+       
         if($request->hasFile('song')){
             $songNameWithExt = request()->file('song')->getClientOriginalName();
             $songName = pathinfo($songNameWithExt, PATHINFO_FILENAME);
-            $extension = request()->file('song')->getClientOriginalExtension();
-            $songNameToStore = $songName.time().".".$extension;
+            $ext = request()->file('song')->getClientOriginalExtension();
+            $songNameToStore = $songName.time().".".$ext;
             request()->file('song')->move(base_path().'/public/Uploads/Audios', $songNameToStore);
         }
-        if (request()->hasFile('cover_image')) {
-            $picNameWithExt = request()->file('cover_image')->getClientOriginalName();
-            $picName = pathinfo($picNameWithExt, PATHINFO_FILENAME);
-            $extension = request()->file('cover_image')->getClientOriginalExtension();
-            $picNameToStore = $picName.time().".".$extension;
-            request()->file('cover_image')->move(base_path().'/public/Uploads/Cover_images', $picNameToStore);
-            
-           // this is to resize the image using Intervention Image!
-           $image_path = base_path().'/public/Uploads/Cover_images/'. $picNameToStore;
-           Image::make($image_path)->resize(1160, 950)->save();
-        }
+        
         if($request->market == 'free'){
             $amt = 0;
         }else{
@@ -77,19 +72,22 @@ class HomeController extends Controller
             'released_date' => $request->released_date,
             'market' => $request->market,
             'amount' => $amt,
-            'cover_image' => 'Uploads/Cover_images/'. $picNameToStore,
+            'cover_image' => 'Uploads/Cover_images/'. $this->saveCoverImage(),
             'location' => 'Uploads/Audios/'. $songNameToStore,
+            'extension' => $ext,
             'user_id' => Auth::id(),
             'uuid' => (string)\Uuid::generate(4),
         ]);
 
         if($song) {
+            event(new newsongUploadedEvent($song));
             return redirect()->route('myAudios')->with('success', 'Song added nicely');
         }
     }
 
     public function myVideos(){
         $videos = auth()->user()->videos;
+        
         return view('frontEnd.auth.myVideos', compact('videos'));
     }
 
@@ -103,21 +101,11 @@ class HomeController extends Controller
         if($request->hasFile('video')){
             $videoNameWithExt = request()->file('video')->getClientOriginalName();
             $videoName = pathinfo($videoNameWithExt, PATHINFO_FILENAME);
-            $extension = request()->file('video')->getClientOriginalExtension();
-            $videoNameToStore = $videoName.time().".".$extension;
+            $ext = request()->file('video')->getClientOriginalExtension();
+            $videoNameToStore = $videoName.time().".".$ext;
             request()->file('video')->move(base_path().'/public/Uploads/Videos', $videoNameToStore);
         }
-        if (request()->hasFile('cover_image')) {
-            $picNameWithExt = request()->file('cover_image')->getClientOriginalName();
-            $picName = pathinfo($picNameWithExt, PATHINFO_FILENAME);
-            $extension = request()->file('cover_image')->getClientOriginalExtension();
-            $picNameToStore = $picName.time().".".$extension;
-            request()->file('cover_image')->move(base_path().'/public/Uploads/Cover_images', $picNameToStore);
-            
-            // this is to resize the image using Intervention Image!
-            $image_path = base_path().'/public/Uploads/Cover_images/'. $picNameToStore;
-            Image::make($image_path)->resize(1160, 950)->save();
-        }
+        
         if($request->market == 'free'){
             $amt = 0;
         }else{
@@ -131,14 +119,18 @@ class HomeController extends Controller
             'released_date' => $request->released_date,
             'market' => $request->market,
             'amount' => $amt,
-            'cover_image' => 'Uploads/Cover_images/'. $picNameToStore,
+            'cover_image' => 'Uploads/Cover_images/'. $this->saveCoverImage(),
             'location' => 'Uploads/videos/'. $videoNameToStore,
+            'extension' => $ext,
             'user_id' => Auth::id(),
             'uuid' => (string)\Uuid::generate(4),
         ]);
 
+        
         if($video) {
-            return redirect()->route('videos.index')->with('success', 'video added nicely');
+            event(new newVideoUploadedEvent($video));
+
+            return redirect()->route('myVideos')->with('success', 'video added nicely');
         }
     }
 
@@ -157,21 +149,11 @@ class HomeController extends Controller
         if($request->hasFile('beat')){
             $beatNameWithExt = request()->file('beat')->getClientOriginalName();
             $beatName = pathinfo($beatNameWithExt, PATHINFO_FILENAME);
-            $extension = request()->file('beat')->getClientOriginalExtension();
-            $beatNameToStore = $beatName.time().".".$extension;
+            $ext = request()->file('beat')->getClientOriginalExtension();
+            $beatNameToStore = $beatName.time().".".$ext;
             request()->file('beat')->move(base_path().'/public/Uploads/Beats', $beatNameToStore);
         }
-        if (request()->hasFile('cover_image')) {
-            $picNameWithExt = request()->file('cover_image')->getClientOriginalName();
-            $picName = pathinfo($picNameWithExt, PATHINFO_FILENAME);
-            $extension = request()->file('cover_image')->getClientOriginalExtension();
-            $picNameToStore = $picName.time().".".$extension;
-            request()->file('cover_image')->move(base_path().'/public/Uploads/Cover_images', $picNameToStore);
-            
-            // this is to resize the image using Intervention Image!
-            $image_path = base_path().'/public/Uploads/Cover_images/'. $picNameToStore;
-            Image::make($image_path)->resize(1160, 950)->save();
-        }
+        
         if($request->market == 'free'){
             $amt = 0;
         }else{
@@ -184,14 +166,16 @@ class HomeController extends Controller
             'released_date' => $request->released_date,
             'market' => $request->market,
             'amount' => $amt,
-            'cover_image' => 'Uploads/Cover_images/'. $picNameToStore,
+            'cover_image' => 'Uploads/Cover_images/'. $this->saveCoverImage(),
             'location' => 'Uploads/Beats/'. $beatNameToStore,
+            'extension' => $ext,
             'user_id' => Auth::id(),
             'uuid' => (string)\Uuid::generate(4),
             
         ]);
 
         if($beat) {
+            event(new newBeatUploadedEvent($beat));
             return redirect()->route('myBeats')->with('success', 'beat added nicely');
         }
     }

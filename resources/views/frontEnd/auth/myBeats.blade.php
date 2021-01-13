@@ -55,7 +55,7 @@
                                   <td>{{ $beat->title }}</td>
                                   <td>{{ $beat->producer }}</td>
                                   <td>{{ $beat->category->name }}</td>
-                                  <td>{{ $beat->downloads->count() }}</td>
+                                  <td>{{ $beat->downloads_count }}</td>
                                   <td>
                                       <a href="" class="btn btn-info btn-round btn-sm">View More</a>
                                   </td>

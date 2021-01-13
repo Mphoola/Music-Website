@@ -39,48 +39,55 @@
         @foreach ($bts as $b)
         <div class="col-md-4 col-xl-3 hover-shadow-1 mb-1">
           <div class="product-3 mb-1">
-            <a class="product-media" href="{{ route('frontend.beats.show', $b->id) }}">
+            <a class="product-media" href="{{ route('frontend.beats.show', $b->uuid) }}">
               <span class="badge badge-pill badge-primary badge-pos-left">New</span>
               <img src="{{ asset($b->cover_image) }}" alt="no cover image">
             </a>
 
             <div class="product-detail">
-              <h6><a href="{{ route('frontend.beats.show', $b->id) }}">{{ $b->title }}</a></h6>
+              <h6><a href="{{ route('frontend.beats.show', $b->uuid) }}">{{ $b->title }}</a></h6>
               <div class='d-flex justify-content-between'>
                 <div class="product-price">
-                  {{ $b->downloads->count() }} <i class='fa fa-download'></i>
+                  {{ $b->downloads_count }} <i class='fa fa-download'></i>
                 </div>
                 <div class="product-price">
-                {{ $b->comments->count() }} <i class='fa fa-comments'></i>
+                {{ $b->comments_count }} <i class='fa fa-comments'></i>
                 </div>
               </div>
             </div>
           </div>
         </div>
         @endforeach
+        {{ isset($bts) ? $bts->links() : '' }}
        @else
-       @foreach ($beats as $b)
-       <div class="col-md-4 col-xl-3 hover-shadow-1 mb-1">
-        <div class="product-3 mb-1">
-          <a class="product-media" href="{{ route('frontend.beats.show', $b->uuid) }}">
-            <span class="badge badge-pill badge-primary badge-pos-left">New</span>
-            <img src="{{ asset($b->cover_image) }}" alt="no cover image">
-          </a>
+        @foreach ($beats as $b)
+        <div class="col-md-4 col-xl-3 hover-shadow-1 mb-1">
+          <div class="product-3 mb-1">
+            <a class="product-media" href="{{ route('frontend.beats.show', $b->uuid) }}">
+              <span class="badge badge-pill badge-primary badge-pos-left">New</span>
+              <img src="{{ asset($b->cover_image) }}" alt="no cover image">
+            </a>
 
-          <div class="product-detail">
-            <h6><a href="{{ route('frontend.beats.show', $b->uuid) }}">{{ $b->title }}</a></h6>
-            <div class='d-flex justify-content-between'>
-              <div class="product-price">
-                {{ $b->downloads_count }} <i class='fa fa-download'></i>
-              </div>
-              <div class="product-price">
-               {{ $b->comments_count }} <i class='fa fa-comments'></i>
+            <div class="product-detail">
+              <h6><a href="{{ route('frontend.beats.show', $b->uuid) }}">{{ $b->title }}</a></h6>
+              <div class='d-flex justify-content-between'>
+                <div class="product-price">
+                  {{ $b->downloads_count }} <i class='fa fa-download'></i>
+                </div>
+                <div class="product-price">
+                {{ $b->comments_count }} <i class='fa fa-comments'></i>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-       @endforeach 
+        @endforeach 
+        
+        <div class="clearfix text-center">
+          <ul class="pagination pagination-sm m-0 text-center">
+            {{ isset($beats) ? $beats->links() : '' }}
+          </ul>
+        </div>
        @endif       
      </div>
 </div>
@@ -92,12 +99,7 @@
     <div class="sidebar px-4 py-md-0 my-5">
 
       <h6 class="sidebar-title">Search</h6>
-      <form class="input-group" target="#" method="GET">
-        <input type="text" class="form-control" name="s" placeholder="Search">
-        <div class="input-group-addon">
-          <span class="input-group-text"><i class="fa fa-search"></i></span>
-        </div>
-      </form>
+      @include('partials.search')
 
       <hr>
 

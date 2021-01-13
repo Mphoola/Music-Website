@@ -41,7 +41,7 @@
                     </p>
                     <p class="product-details-info-text">
                         
-                        Downloads: {{ $song->downloads->count() }}
+                        Downloads: {{ $song->downloads_count }}
                     </p>
 
                     <form action="{{ route('cart.add') }}" method="post">

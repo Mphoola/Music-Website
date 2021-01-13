@@ -40,17 +40,17 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-
+        
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admins',
+        ],
         'api' => [
             'driver' => 'token',
             'provider' => 'users',
             'hash' => false,
         ],
         
-        'admin' => [
-            'driver' => 'session',
-            'provider' => 'admins',
-        ],
     ],
 
     /*
@@ -122,5 +122,8 @@ return [
     */
 
     'password_timeout' => 10800,
+     
+    //duration to when admins must reset their passowrd
+    'password_expires_days' => 1,
 
 ];

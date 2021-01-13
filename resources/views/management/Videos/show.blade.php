@@ -19,12 +19,13 @@
   <div class=" mb-3 col-12 mb-1">
     <h3 class="font-weight-bold">Watch it</h3>
     
-   <div class="">
-    <video  controls class="" style="margin-left: auto">
+   
+    <video  controls class="" style="width: 100%; hieght: 100%">
       <source src="{{ asset($video->location) }}" type="video/mp4">
       Your browser does not support HTML5 video.
     </video>
-   </div>
+   
+   
 </div>
     <div class="col-12">
         <div class="card">
@@ -76,7 +77,7 @@
                 </p>
                 <p class="d-flex flex-column text-right">
                   <span class="font-weight-bold">
-                    {{ $video->downloads->count() }}
+                    {{ $video->downloads_count }}
                   </span>
                 </p>
               </div>
@@ -112,11 +113,11 @@
               </div>
               <div class="d-flex justify-content-between border-bottom mb-2">
                 <p class="">
-                    <span class="text-muted">Likes</span>
+                    <span class="text-muted">Size</span>
                 </p>
                 <p class="d-flex flex-column text-right">
                   <span class="font-weight-bold">
-                    {{ 3 }}
+                    {{ $size }} MB
                   </span>
                 </p>
               </div>
@@ -137,7 +138,28 @@
     </div>
 </div>
 <div class="col-12 mt-3">
-    <a href="{{ route('videos.edit', $video->id) }}" class="btn btn-success btn-block btn-round btn-hover text-white">Edit Details</a>
-    <a class="btn btn-danger btn-block btn-round btn-hover mb-1 text-white">Delete the video</a>
+    <a href="{{ route('videos.edit', $video->id) }}" 
+        class="btn btn-success btn-block btn-round btn-hover text-white">Edit Details</a>
+        <form id="deleteForm" action="{{ route('videos.delete', $video->id) }}" method="post">
+          @csrf
+          @method("DELETE")
+          
+        </form>
+        <button data-toggle="modal" data-target="#deleteModal" 
+          class="btn btn-danger btn-block btn-round btn-hover my-3 text-white">Delete the beat</button>
 </div>
+@include('partials.deleteModal')
 @endsection
+
+@section('scripts')
+    
+<script src="{{ asset('js/za.js') }}"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+    $('#delete').on('click',function(){
+      $('#deleteForm').submit();      
+		});
+	});
+  
+</script>
+  @endsection

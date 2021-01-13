@@ -20,8 +20,10 @@ class CreateSongsTable extends Migration
             $table->string('producer');
             $table->unsignedInteger('category_id');
             $table->unsignedInteger('user_id')->nullable();
-            $table->string('u_name')->nullable();
+            $table->unsignedBigInteger('downloads_count')->default('0');
+            $table->unsignedBigInteger('admin_id')->nullable();
             $table->string('location');
+            $table->string('extension');
             $table->date('released_date');
             $table->string('cover_image');
             $table->enum('market', ['free', 'sale']);

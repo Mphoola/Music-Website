@@ -9,8 +9,23 @@
     <div class="col-12">
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">All Beats</h3>
-          <a href="{{ route('beats.create') }}" class="btn btn-success btn-round float-right">Upload New Beat</a>
+          <h3 class="card-title">
+            <a href="{{ route('beats.create') }}" class="btn btn-success btn-round btn-sm">Upload New Beat</a>
+          </h3>
+
+          <div class="card-tools">
+            <form action="{{ route('beat_search') }}" method="get">
+              @csrf
+              <div class="input-group input-group-sm" style="width: 250px;">
+                <input type="text" name="query" class="form-control float-right" placeholder="Search beat">
+
+                <div class="input-group-append">
+                  <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                </div>
+              </div>
+            </form>
+          </div>
+          
         </div>
         <!-- /.card-header -->
         <div class="card-body table-responsive p-0">
@@ -30,7 +45,7 @@
                 <tr>
                     <td>{{ $beat->title }}</td>
                     <td>{{ $beat->category->name }}</td>
-                    <td>{{ $beat->downloads->count() }}</td>
+                    <td>{{ $beat->downloads_count }}</td>
                     <td>
                         <a href="{{ route('beats.show', $beat->id) }}" class="btn btn-info btn-round btn-sm">View More</a>
                     </td>
@@ -42,6 +57,11 @@
           </table>
         </div>
         <!-- /.card-body -->
+      </div>
+      <div class="card-footer clearfix">
+        <ul class="pagination pagination-sm m-0 float-right">
+          {{ $beats->links() }}
+        </ul>
       </div>
       <!-- /.card -->
     </div>

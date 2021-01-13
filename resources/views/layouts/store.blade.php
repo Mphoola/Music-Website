@@ -7,13 +7,24 @@
         @yield('title', '96Legacy Shop')
     </title>
 
+  @if (Route::currentRouteName() == 'cart.checkout')
+      <link rel="stylesheet" href="{{ asset('css/za.css') }}">
+      <script src="{{ asset('js/za.js') }}"></script>
+  @endif
+
+  @yield('scripts')
+
     <link rel="stylesheet" type="text/css" href="{{ asset('store/css/fonts.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('store/css/crumina-fonts.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('store/css/normalize.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('store/css/grid.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('store/css/styles.css') }}">
 
+    <link rel="stylesheet" href="{{ asset('96/css/fontawesome.css') }}">
+    <link rel="shortcut icon" href="{{ asset('testEnd/images/us.png') }}" type="image/x-icon">
 
+        <!-- toastr -->
+        <link rel="stylesheet" href="{{ asset('96/css/toastr.min.css') }}">
     <!--Plugins styles-->
 
     <link rel="stylesheet" type="text/css" href="{{ asset('store/css/jquery.mCustomScrollbar.min.css') }}">
@@ -40,29 +51,29 @@
 
         <div class="header-content-wrapper">
 
-            <ul class="nav-add">
+            <div class="nav-add">
                
-                  <li  >
+                  <div>
 
                     <a href="/" style="margin: 5px; padding: 7px; background: pink">Go to Free Download</a>
-                </li>
-                  <li  >
+                </div>
+                  <div>
                     <a href="{{ route('shop.beats') }}" style="margin: 5px; padding: 7px; background: pink">Beats</a>
                    
-                </li>
-                  <li  >
+                </div>
+                  <div >
 
                     <a href="{{ route('shop.mp3-music') }}" style="margin: 5px; padding: 7px; background: pink">Mp3 Music</a>
-                </li>
-                  <li  >
+                </div>
+                  <div  >
 
                     <a href="{{ route('shop.videos') }}" style="margin: 5px; padding: 7px; background: pink">Videos</a>
-                </li>
+                </div>
                 
                 <li class="cart">
 
                     <a  class="js-cart-animate">
-                        <i class="seoicon-basket"></i>
+                        <i class="fa fa-cart-plus fa-2x"></i>
                         <span class="cart-count">{{ Cart::getContent()->count() }}</span>
                     </a>
 
@@ -78,9 +89,9 @@
                         </div>
                     </div>
 
-                </li>
+                </div>
                 
-            </ul>
+            </div>
         </div>
 
     </div>
@@ -178,7 +189,7 @@
     </div>
 </footer>
 
-
+<script src="{{ asset('testEnd/js/fontawesome.js') }}"></script>
 
 <script src="{{ asset('store/js/jquery-2.1.4.min.js')}}"></script>
 <script src="{{ asset('store/js/crum-mega-menu.js')}}"></script>
@@ -193,7 +204,18 @@
 
 <!-- ...end JS Script -->
 
+<!-- toastr -->
+<script src="{{ asset('96/js/toastr.min.js') }}"></script>
 
+
+<script>
+  @if (Session::has('success'))
+    toastr.success('{{ session()->get('success') }}')
+  @endif
+  @if (Session::has('error'))
+    toastr.error('{{ session()->get('error') }}')
+  @endif
+</script>
 </body>
 
 <!-- Mirrored from theme.crumina.net/html-seosight/16_shop.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 27 Nov 2016 13:03:04 GMT -->

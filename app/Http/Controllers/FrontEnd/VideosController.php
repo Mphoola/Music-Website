@@ -10,8 +10,8 @@ use Illuminate\Http\Request;
 class VideosController extends Controller
 {
     public function index(){
-        $vedios = Video::with('downloads', 'comments')->paginate(8);
-        $most_downloads = Video::withCount('downloads')->orderBy('downloads_count', 'desc')->take(5)->get();
+        $vedios = Video::withCount('comments')->where('market', 'free')->where('verified', '1')->paginate(12);
+        $most_downloads = $this->most_downloads();
         
         return view('frontEnd.videos')
             ->with('categories', Category::all())
@@ -20,29 +20,25 @@ class VideosController extends Controller
     }
 
     public function show($id){
-        $video = Video::where('uuid', $id)->firstOrFail();
-        $video->load('downloads', 'comments');
-        $most_downloads = Video::withCount('downloads')->orderBy('downloads_count', 'desc')->take(5)->get();
+        $video = Video::findVideo($id);
+        $size = $this->getFileSize($video->location);
+        $video->load('comments', 'category');
+        $most_downloads = $this->most_downloads();
         return view('frontEnd.singleVideo')
             ->with('categories', Category::all())
             ->with('video', $video)
+            ->with('size', $size)
             ->with('most_downloads', $most_downloads);
     }
 
     public function download($id){
-        $v = Video::where('uuid', $id)->firstOrFail();
-        if($v){
-            $v->downloads()->create();
-            $loc = public_path().'/'. $v->location;
-       
-            // Storage::download($b->location, $name);
-           return response()->download($loc);
-        }
-           
+        $v = Video::findVideo($id);
+        
+        return $this->downloadFile($v);    
     }
 
     public function comment(Request $request, $id){
-        $v = Video::where('uuid', $id)->firstOrFail();
+        $v = Video::findVideo($id);
         
        if($v){
         $v->comments()->create([
@@ -55,12 +51,16 @@ class VideosController extends Controller
     }
 
     public function showByCategory(Category $category){
-        $most_downloads = Vides::withCount('downloads')->orderBy('downloads_count', 'desc')->take(5)->get();
-        $vids = $category->videos;
+        $most_downloads = $this->most_downloads();
+        $vids = $category->videos()->withCount('comments')->where('market', 'free')->where('verified', '1')->paginate(12);
         return view('frontEnd.videos')
             ->with('categories', Category::all())
             ->with('vids', $vids)
             ->with('most_downloads', $most_downloads)
             ->with('category', $category->name);
+    }
+
+    private function most_downloads(){
+        return Video::where('market', 'free')->where('verified', '1')->orderBy('downloads_count', 'desc')->take(5)->get();
     }
 }

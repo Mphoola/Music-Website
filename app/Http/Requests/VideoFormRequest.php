@@ -23,16 +23,33 @@ class VideoFormRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+       $rules = [
             'title' => 'required',
             'artist' => 'required',
             'producer' => 'required',
             'category_id' => 'required',
-            'released_date' => 'required|date|before:now',
-            'cover_image' => 'required|sometimes|image|mimes:jpeg,bmp,png,jpg|max:3000',
-            'video' => 'required|sometimes|mimes:mp4,mov,ogg,qt',
-            
-            'amount' => 'required_if:market, sale',
+            'released_date' => 'required|date|before:today',            
         ];
+
+        if(request()->method() == 'POST'){
+            $rules += [
+                'video' => 'required|mimes:mp4,mov,ogg,qt', 
+                'cover_image' => 'required|image|mimes:jpeg,bmp,png,jpg|max:3000'
+            ];
+        }else{
+            $rules += [
+                'video' => 'mimes:mp4,mov,ogg,qt', 
+                'cover_image' => 'image|mimes:jpeg,bmp,png,jpg|max:3000'
+            ];
+        }
+
+        if(request()->market == 'sale'){
+            $rules += [
+                'amount' => 'required', 
+            ];  
+        }
+        
+
+        return $rules;
     }
 }

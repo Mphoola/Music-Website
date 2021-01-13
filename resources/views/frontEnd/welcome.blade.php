@@ -11,6 +11,7 @@
             <div class="col-lg-8 mx-auto">
             <h1>Malawian <span class="text-primary" data-typing=" Trending, Lattest, Music , Videos, Beats"></span></h1>
             <p class="lead-2 mt-5">Any music, video or beats of your choice is here</p>
+            
             </div>
         </div>
         </div>
@@ -35,10 +36,10 @@
             <h6><a href="{{ route('frontend.music.show', $m->uuid) }}">{{ $m->full_details }}</a></h6>
             <div class='d-flex justify-content-between'>
               <div class="product-price">
-                {{ $m->downloads->count() }} <i class='fa fa-download'></i>
+                {{ $m->downloads_count }} <i class='fa fa-download'></i>
               </div>
               <div class="product-price">
-               {{ $m->comments->count() }} <i class='fa fa-comments'></i>
+               {{ $m->comments_count }} <i class='fa fa-comments'></i>
               </div>
             </div>
           </div>
@@ -66,13 +67,13 @@
           </a>
 
           <div class="product-detail">
-            <h6><a href="{{ route('frontend.beats.show', $b->uuid) }}">{{ $b->title }}</a></h6>
+            <h6><a href="{{ route('frontend.beats.show', $b->uuid) }}">{{ $b->full_details }}</a></h6>
             <div class='d-flex justify-content-between'>
               <div class="product-price">
-                {{ $b->downloads->count() }} <i class='fa fa-download'></i>
+                {{ $b->downloads_count }} <i class='fa fa-download'></i>
               </div>
               <div class="product-price">
-               {{ $b->comments->count() }} <i class='fa fa-comments'></i>
+               {{ $b->comments_count }} <i class='fa fa-comments'></i>
               </div>
             </div>
           </div>
@@ -99,13 +100,13 @@
           </a>
 
           <div class="product-detail">
-            <h6><a href="{{ route('frontend.videos.show', $v->uuid) }}">{{ $v->title }}</a></h6>
+            <h6><a href="{{ route('frontend.videos.show', $v->uuid) }}">{{ $v->full_details }}</a></h6>
             <div class='d-flex justify-content-between'>
               <div class="product-price">
-                {{ $v->downloads->count() }} <i class='fa fa-download'></i>
+                {{ $v->downloads_count }} <i class='fa fa-download'></i>
               </div>
               <div class="product-price">
-               {{ $v->comments->count() }} <i class='fa fa-comments'></i>
+               {{ $v->comments_count }} <i class='fa fa-comments'></i>
               </div>
             </div>
           </div>
@@ -126,12 +127,7 @@
     <div class="sidebar px-4 py-md-0 my-5">
 
       <h6 class="sidebar-title">Search</h6>
-      <form class="input-group" target="#" method="GET">
-        <input type="text" class="form-control" name="s" placeholder="Search">
-        <div class="input-group-addon">
-          <span class="input-group-text"><i class="fa fa-search"></i></span>
-        </div>
-      </form>
+      @include('partials.search')
 
       <hr>
 
@@ -147,7 +143,7 @@
 
       <h6 class="sidebar-title">Most Downloads</h6>
       @foreach ($most_downloads as $d)
-        <a class="media text-default align-items-center mb-5" href="blog-single.html">
+        <a class="media text-default align-items-center mb-5" href="{{ route('frontend.music.show', $d->uuid) }}">
           <img class="rounded w-65px mr-4" src="{{ asset($d->cover_image) }}">
           <p class="media-body small-2  mb-0">{{ $d->downloads_count }} <i class="fa fa-download"></i></p>
           <p class="media-body small-2  mb-0">{{ $d->title }}</p>
@@ -155,7 +151,12 @@
       @endforeach
 
       <hr>
-
+      <p>
+        {{ GetAdvert::displayAdvert($type) }}
+      </p>
+      <p>
+        {{ GetAdvert::displayAdvert($type) }}
+      </p>
 
 
     </div>
@@ -166,53 +167,14 @@
 <section class="section p-0 bg-gray">
     <h3 class='text-capitalize text-center'>Best of all time</h3>
      <div data-provide="slider" data-autoplay="true" data-slides-to-show="6" data-css-ease="linear" data-speed="12000" data-autoplay-speed="0" data-pause-on-hover="true">
-       <div class="p-2">
-         <div class="rounded bg-img h-200 " style="background-image: url({{ asset('testEnd/images/96.png') }});"></div>
-       picky - Unamata
-       </div>
-       <div class="p-2">
-         <div class="rounded bg-img h-200 " style="background-image: url({{ asset('testEnd/images/96.png') }});"></div>
-       picky - Unamata
-       </div>
-       <div class="p-2">
-         <div class="rounded bg-img h-200 " style="background-image: url({{ asset('testEnd/images/96.png') }});"></div>
-       picky - Unamata
-       </div>
-       <div class="p-2">
-         <div class="rounded bg-img h-200 " style="background-image: url({{ asset('testEnd/images/96.png') }});"></div>
-       picky - Unamata
-       </div>
-       <div class="p-2">
-         <div class="rounded bg-img h-200 " style="background-image: url({{ asset('testEnd/images/96.png') }});"></div>
-       picky - Unamata
-       </div>
-       <div class="p-2">
-         <div class="rounded bg-img h-200 " style="background-image: url({{ asset('testEnd/images/us.png') }});"></div>
-       picky - Unamata
-       </div>
-       <div class="p-2">
-         <div class="rounded bg-img h-200 " style="background-image: url({{ asset('testEnd/images/us.png') }});"></div>
-       picky - Unamata
-       </div>
-       <div class="p-2">
-         <div class="rounded bg-img h-200 " style="background-image: url({{ asset('testEnd/images/us.png') }});"></div>
-       picky - Unamata
-       </div>
-
-       <div class="p-2">
-         <div class="rounded bg-img h-200 " style="background-image: url({{ asset('testEnd/images/us.png') }});"></div>
-       picky - Unamata
-       </div>
-
-       <div class="p-2">
-         <div class="rounded bg-img h-200 " style="background-image: url({{ asset('testEnd/images/96.png') }});"></div>
-       picky - Unamata
-       </div>
-
-       <div class="p-2">
-         <div class="rounded bg-img h-200 " style="background-image: url({{ asset('testEnd/images/96.png') }});"></div>
-       picky - Unamata
-       </div>
+      @foreach ($musics as $d)
+      <a href="{{ route('frontend.music.show', $d->uuid) }}">
+        <div class="p-2">
+            <div class="rounded bg-img h-200 " style="background-image: url({{ asset($d->cover_image) }});"></div>
+            {{ $d->full_details }}
+          </div>
+        </a>
+       @endforeach
      </div>
    </section>
 @endsection

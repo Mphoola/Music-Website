@@ -7,12 +7,16 @@ use App\Category;
 use App\Http\Controllers\Controller;
 use App\Song;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class MusicController extends Controller
 {
     public function index(){
-        $music = Song::withCount('downloads', 'comments')->orderBy('created_at', 'desc')->paginate(8);
-        $most_downloads = Song::withCount('downloads')->orderBy('downloads_count', 'desc')->take(5)->get();
+        $music = Song::withCount('comments')
+            ->where('market', 'free')
+            ->orderBy('created_at', 'desc')
+            ->paginate(12);
+        $most_downloads = $this->most_downloads();
         
         return view('frontEnd.music')
             ->with('categories', Category::all())
@@ -21,30 +25,26 @@ class MusicController extends Controller
     }
 
     public function show($uuid){
-        $song = Song::where('uuid', $uuid)->firstOrFail();
-        $song->load('downloads', 'comments');
-        $most_downloads = Song::withCount('downloads')->orderBy('downloads_count', 'desc')->take(5)->get();
+        $song = Song::findSong($uuid);
+        $size = $this->getFileSize($song->location);
+        $song->with('comments', 'category');
+        $most_downloads = $this->most_downloads();
         return view('frontEnd.singleMusic')
             ->with('categories', Category::all())
             ->with('song', $song)
+            ->with('size', $size)
             ->with('most_downloads', $most_downloads);
     }
 
     public function download($uuid){
-        $s = Song::where('uuid', $uuid)->firstOrFail();
-        if($s){
-            $s->downloads()->create();
-            $loc = public_path().'/'. $s->location;
-       
-            // Storage::download($b->location, $name);
-           return response()->download($loc);
-        }
-           
+        $s = Song::findSong($uuid);
+
+        return $this->downloadFile($s); 
     }
 
     public function comment(Request $request,$uuid){
   
-        $s = Song::where('uuid', $uuid)->firstOrFail();
+        $s = Song::findSong($uuid);
         if($s){
          $s->comments()->create([
              'creator_name' => $request->creator_name,
@@ -56,12 +56,16 @@ class MusicController extends Controller
     }
 
     public function showByCategory(Category $category){
-        $most_downloads = Song::withCount('downloads')->orderBy('downloads_count', 'desc')->take(5)->get();
-        $songs = $category->songs;
+        $most_downloads = $this->most_downloads();
+        $songs = $category->songs()->withCount('comments')->paginate(12);
         return view('frontEnd.music')
             ->with('categories', Category::all())
             ->with('songs', $songs)
             ->with('most_downloads', $most_downloads)
             ->with('category', $category->name);
+    }
+
+    private function most_downloads(){
+        return Song::where('market', 'free')->orderBy('downloads_count', 'desc')->take(5)->get();
     }
 }

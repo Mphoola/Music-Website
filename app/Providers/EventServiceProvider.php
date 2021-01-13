@@ -2,6 +2,12 @@
 
 namespace App\Providers;
 
+use App\Events\newBeatUploadedEvent;
+use App\Events\newsongUploadedEvent;
+use App\Events\newVideoUploadedEvent;
+use App\Listeners\sendBeatNotToAdminListener;
+use App\Listeners\sendSongNotToAdminListener;
+use App\Listeners\sendVideoNotToAdminListener;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -18,6 +24,16 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+        newVideoUploadedEvent::class => [
+            sendVideoNotToAdminListener::class
+        ],
+        newsongUploadedEvent::class => [
+            sendSongNotToAdminListener::class
+        ],
+        newBeatUploadedEvent::class => [
+            sendBeatNotToAdminListener::class
+        ],
+        
     ];
 
     /**

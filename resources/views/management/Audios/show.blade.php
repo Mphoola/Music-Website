@@ -21,8 +21,12 @@
 </div>
 <div class="row">
     <div class="col-mb-6 mb-1 justify-content-center">
-      <img src="{{ asset($song->cover_image) }}" alt="{{ __('Cover Image') }}" width="450px" height="435px"
-      class="img-responsive rounded mx-3">
+      
+          <img src="{{ asset($song->cover_image) }}" alt="{{ __('Cover Image') }}"
+          width="450px" height="435px"
+      class="img-fluid pl-2 pr-1 img-fadein img-rounded">
+        
+      
     </div>
     <div class="col-md-6">
         <div class="card">
@@ -74,7 +78,7 @@
                 </p>
                 <p class="d-flex flex-column text-right">
                   <span class="font-weight-bold">
-                    {{ $song->downloads->count() }}
+                    {{ $song->downloads_count }}
                   </span>
                 </p>
               </div>
@@ -110,11 +114,11 @@
               </div>
               <div class="d-flex justify-content-between border-bottom mb-2">
                 <p class="">
-                    <span class="text-muted">Likes</span>
+                    <span class="text-muted">Size</span>
                 </p>
                 <p class="d-flex flex-column text-right">
                   <span class="font-weight-bold">
-                    {{ 3 }}
+                    {{ $size }} MB
                   </span>
                 </p>
               </div>
@@ -136,6 +140,26 @@
 </div>
 <div class="col-12 mt-3">
     <a href="{{ route('songs.edit', $song->id) }}" class="btn btn-success btn-block btn-round btn-hover text-white">Edit Details</a>
-    <a class="btn btn-danger btn-block btn-round btn-hover mb-1 text-white">Delete the song</a>
+    <form id="deleteForm" action="{{ route('songs.delete', $song->id) }}" method="post">
+      @csrf
+      @method("DELETE")
+      
+    </form>
+    <button data-toggle="modal" data-target="#deleteModal" 
+      class="btn btn-danger btn-block btn-round btn-hover my-3 text-white">Delete the Song</button>
 </div>
+@include('partials.deleteModal')
 @endsection
+
+@section('scripts')
+    
+<script src="{{ asset('js/za.js') }}"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+    $('#delete').on('click',function(){
+      $('#deleteForm').submit();      
+		});
+	});
+  
+</script>
+  @endsection

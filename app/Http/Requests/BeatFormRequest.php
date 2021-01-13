@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class BeatFormRequest extends FormRequest
 {
@@ -24,14 +25,31 @@ class BeatFormRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        $rules = [
             'title' => 'required',
             'producer' => 'required',
             'category_id' => 'required',
-            'released_date' => 'required|date|before:now',
-            'cover_image' => 'required|sometimes|image|mimes:jpeg,bmp,png,jpg|max:3000',
-            'amount' => 'required_if:market, sale',
-            'beat' => 'required|sometimes|mimes:mp3,wav,mpga,audio/mpeg'
+            'released_date' => 'required|date|before:today',
         ];
+        if(request()->method() == 'POST'){
+            $rules += [
+                'beat' => 'required|mimes:mp3,wav,mpga,audio/mpeg', 
+                'cover_image' => 'required|image|mimes:jpeg,bmp,png,jpg|max:3000'
+            ];
+        }else{
+            $rules += [
+                'beat' => 'mimes:mp3,wav,mpga,audio/mpeg', 
+                'cover_image' => 'image|mimes:jpeg,bmp,png,jpg|max:3000'
+            ];
+        }
+
+        
+        if(request()->market == 'sale'){
+            $rules += [
+                'amount' => 'required', 
+            ];  
+        }
+
+        return $rules;
     }
 }

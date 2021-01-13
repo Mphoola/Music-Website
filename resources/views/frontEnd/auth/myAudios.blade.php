@@ -57,7 +57,7 @@
                                   <td>{{ $song->title }}</td>
                                   <td>{{ $song->artist }}</td>
                                   <td>{{ $song->category->name }}</td>
-                                  <td>{{ $song->downloads->count() }}</td>
+                                  <td>{{ $song->downloads_count }}</td>
                                   <td>
                                       <a href="" class="btn btn-info btn-round btn-sm">View More</a>
                                   </td>

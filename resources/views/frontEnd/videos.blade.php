@@ -49,16 +49,17 @@
               <h6><a href="{{ route('frontend.videos.show', $v->uuid) }}">{{ $v->full_details }}</a></h6>
               <div class='d-flex justify-content-between'>
                 <div class="product-price">
-                  {{ $v->downloads->count() }} <i class='fa fa-download'></i>
+                  {{ $v->downloads_count }} <i class='fa fa-download'></i>
                 </div>
                 <div class="product-price">
-                {{ $v->comments->count() }} <i class='fa fa-comments'></i>
+                {{ $v->comments_count }} <i class='fa fa-comments'></i>
                 </div>
               </div>
             </div>
           </div>
         </div>
         @endforeach 
+        {{isset($vids) ? $vids->links() : '' }}
        @else
        @foreach ($videos as $v)
        <div class="col-md-4 col-xl-3 hover-shadow-1 mb-1">
@@ -82,6 +83,7 @@
         </div>
       </div>
        @endforeach  
+       {{ isset($videos) ? $videos->links() : '' }}
        @endif
 
      </div>
@@ -94,12 +96,7 @@
     <div class="sidebar px-4 py-md-0 my-5">
 
       <h6 class="sidebar-title">Search</h6>
-      <form class="input-group" target="#" method="GET">
-        <input type="text" class="form-control" name="s" placeholder="Search">
-        <div class="input-group-addon">
-          <span class="input-group-text"><i class="fa fa-search"></i></span>
-        </div>
-      </form>
+      @include('partials.search')
 
       <hr>
 
