@@ -3,7 +3,9 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Illuminate\Support\Str;
 use Spatie\Searchable\Searchable;
 use Spatie\Searchable\SearchResult;
 
@@ -22,7 +24,12 @@ class Video extends Model implements Searchable
 
     public function getSearchResult(): SearchResult
     {
-        $url = route('frontend.videos.show', $this->uuid);
+        if(Auth::guard('admin')->check()){
+            $url = route('videos.show', $this->id);
+        }else{
+
+            $url = route('frontend.videos.show', ['f' => $this->slug, 'id' => $this->uuid]);
+        }
 
         return new SearchResult(
             $this,
@@ -33,6 +40,10 @@ class Video extends Model implements Searchable
 
     public function getFullDetailsAttribute(){
         return $this->artist . ' - ' . $this->title;
+    }
+
+    public function getSlugAttribute(){
+        return Str::slug($this->full_details);
     }
 
     public function getProducedDateAttribute(){

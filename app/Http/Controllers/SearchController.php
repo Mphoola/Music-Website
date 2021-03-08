@@ -15,11 +15,11 @@ class SearchController extends Controller
 {
     public function index(ClientRequest $request){
         $searchResults = (new Search())
-            ->registerModel(Beat::class, 'title')
-            ->registerModel(Song::class, 'artist')
-            ->registerModel(Song::class, 'title')
             ->registerModel(Video::class, 'title')
+            ->registerModel(Song::class, 'title')
+            ->registerModel(Song::class, 'artist')
             ->registerModel(Video::class, 'artist')
+            ->registerModel(Beat::class, 'title')
             ->registerModel(Post::class, 'title')
             ->registerModel(Category::class, 'name')
             ->perform($request->input('query'));

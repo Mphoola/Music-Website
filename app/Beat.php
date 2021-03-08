@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Searchable\Searchable;
 use Spatie\Searchable\SearchResult;
@@ -28,7 +29,7 @@ class Beat extends Model implements Searchable
         if(Auth::guard('admin')->check()){
             $url = route('beats.show', $this->id);
         }else{
-            $url = route('frontend.beats.show', $this->uuid);
+            $url = route('frontend.beats.show',['f' => $this->slug, 'id' =>  $this->uuid]);
         }
 
         return new SearchResult(
@@ -47,6 +48,10 @@ class Beat extends Model implements Searchable
  
     public function scopeFindBeat($query, $id){
         return $query->where('uuid', $id)->firstOrFail();
+    }
+
+    public function getSlugAttribute(){
+        return Str::slug($this->full_details);
     }
 
     public function category(){

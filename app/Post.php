@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Searchable\Searchable;
 use Spatie\Searchable\SearchResult;
@@ -21,7 +22,12 @@ class Post extends Model implements Searchable
 
     public function getSearchResult(): SearchResult
     {
-        $url = route('blogs.show', $this->slug);
+        if(Auth::guard('admin')->check()){
+            $url = route('blog-posts.show', $this->slug);
+        }else{
+
+            $url = route('blogs.show', $this->slug);
+        }
 
         return new SearchResult(
             $this,

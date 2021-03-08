@@ -19,7 +19,7 @@ class VideosController extends Controller
             ->with('most_downloads', $most_downloads);
     }
 
-    public function show($id){
+    public function show($f, $id){
         $video = Video::findVideo($id);
         $size = $this->getFileSize($video->location);
         $video->load('comments', 'category');
@@ -31,7 +31,7 @@ class VideosController extends Controller
             ->with('most_downloads', $most_downloads);
     }
 
-    public function download($id){
+    public function download($f, $id){
         $v = Video::findVideo($id);
         
         return $this->downloadFile($v);    
@@ -51,6 +51,7 @@ class VideosController extends Controller
     }
 
     public function showByCategory(Category $category){
+        
         $most_downloads = $this->most_downloads();
         $vids = $category->videos()->withCount('comments')->where('market', 'free')->where('verified', '1')->paginate(12);
         return view('frontEnd.videos')

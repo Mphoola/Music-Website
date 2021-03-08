@@ -17,6 +17,7 @@
         <link rel="stylesheet" href="{{ asset('testEnd/css/page.min.css') }}">
         <link rel="stylesheet" href="{{ asset('testEnd/css/fontawesome.min.css') }}">
 
+        
           <!-- toastr -->
           <link rel="stylesheet" href="{{ asset('96/css/toastr.min.css') }}">
     </head>
@@ -114,7 +115,7 @@
           </div>
 
           <div class="col-md-3 text-center text-md-left">
-            <small>© 2020 96Legacy. All rights reserved.</small>
+            <small>&copy; <?php echo date("Y");?> 96Legacy. All rights reserved.</small>
           </div>
 
           <div class="col-md-9 text-center text-md-right">
@@ -128,13 +129,19 @@
         </div>
       </div>
     </footer>
-             
+
+    <script src="{{ asset('js/jquery-3.5.1.slim.min.js') }}"></script>
+    <script src="{{ asset('js/share.js') }}"></script>
+
         <script src="{{ asset('testEnd/js/page.min.js') }}"></script>
         <script src="{{ asset('testEnd/js/fontawesome.js') }}"></script>
         <script src="{{ asset('testEnd/js/script.js') }}"></script>
 
         <!-- toastr -->
       <script src="{{ asset('96/js/toastr.min.js') }}"></script>
+
+      <script src="{{ asset('js/jquery-3.5.1.slim.min.js') }}"></script>
+      <script src="{{ asset('js/share.js') }}"></script>
 
 
       <script>

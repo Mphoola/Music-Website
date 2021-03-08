@@ -63,10 +63,14 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+
         'goHome' => \App\Http\Middleware\GoHome::class,
         'IsAdmin' => \App\Http\Middleware\IsAdmin::class,
         'ActivityLogGuard' => \App\Http\Middleware\ActivityLogGuard::class,
         'password_expired' => \App\Http\Middleware\PasswordExpired::class,
+        'CheckUserBanned' => \App\Http\Middleware\CheckUserBanned::class,
+        'CheckAdminBanned' => \App\Http\Middleware\CheckAdminBanned::class,
+
         'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class,
         'permission' => \Spatie\Permission\Middlewares\PermissionMiddleware::class,
         'role_or_permission' => \Spatie\Permission\Middlewares\RoleOrPermissionMiddleware::class,

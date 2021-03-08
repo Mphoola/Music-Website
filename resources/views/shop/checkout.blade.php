@@ -1,7 +1,8 @@
 @extends('layouts.store')
 
 @section('title')
-    96Legacy Shop | checkout
+	96Legacy Shop | checkout
+	
 @endsection
 
 @section('content')
@@ -14,7 +15,7 @@
 					<div class="col-lg-12">
 				<div class="order">
 					<h2 class="h1 order-title text-center">Checkout Your Order</h2>
-					<form action="#" method="post" class="cart-main">
+					<div  class="cart-main">
 						<table class="shop_table cart">
 							<thead class="cart-product-wrap-title-main">
 							<tr>
@@ -117,7 +118,7 @@
 							</div>
 						</div>
 						
-					</form>
+					</div>
 					<div class="h4 text-center">
 
 						<button id="button" class="btn btn-success btn-xl btn-round float-right">Pay Using Zachangu</button><hr>

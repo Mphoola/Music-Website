@@ -36,13 +36,13 @@
             @foreach ($musics as $m)
             <div class="col-md-4 col-xl-3 hover-shadow-1 mb-1">
             <div class="product-3 mb-1">
-              <a class="product-media" href="{{ route('frontend.music.show', $m->uuid) }}">
+              <a class="product-media" href="{{ route('frontend.music.show', ['f' => $m->slug, 'id' => $m->uuid]) }}">
                 <span class="badge badge-pill badge-primary badge-pos-left">New</span>
                 <img src="{{ asset($m->cover_image) }}" alt="no cover image">
               </a>
 
               <div class="product-detail">
-                <h6><a href="{{ route('frontend.music.show', $m->uuid) }}">{{ $m->full_details }}</a></h6>
+                <h6><a href="{{ route('frontend.music.show', ['f' => $m->slug, 'id' => $m->uuid]) }}">{{ $m->full_details }}</a></h6>
                 <div class='d-flex justify-content-between'>
                   <div class="product-price">
                     {{ $m->downloads_count }} <i class='fa fa-download'></i>
@@ -61,13 +61,14 @@
           @foreach ($songs as $m)
           <div class="col-md-4 col-xl-3 hover-shadow-1 mb-1">
           <div class="product-3 mb-1">
-            <a class="product-media" href="{{ route('frontend.music.show', $m->uuid) }}">
+            <a class="product-media" href="{{ route('frontend.music.show', ['f' => $m->slug, 'id' => $m->uuid]) }}">
               <span class="badge badge-pill badge-primary badge-pos-left">New</span>
               <img src="{{ asset($m->cover_image) }}" alt="no cover image">
             </a>
 
             <div class="product-detail">
-              <h6><a href="{{ route('frontend.music.show', $m->uuid) }}">{{ $m->full_details }}</a></h6>
+              
+              <h6><a href="{{ route('frontend.music.show', ['f' => $m->slug, 'id' => $m->uuid]) }}">{{ $m->full_details }}</a></h6>
               <div class='d-flex justify-content-between'>
                 <div class="product-price">
                   {{ $m->downloads_count }} <i class='fa fa-download'></i>
@@ -98,9 +99,9 @@
 
       <h6 class="sidebar-title">Categories</h6>
       <div class="row link-color-default fs-14 lh-24">
-          @foreach ($categories as $cat)
-          <div class="col-6"><a href="{{ route('frontend.music.showByCategory', ['category' => $cat->slug]) }}">
-            {{ $cat->name }}</a>
+          @foreach ($categories as $category)
+          <div class="col-6"><a href="{{ route('frontend.music.showByCategory', $category->slug) }}">
+            {{ $category->name }}</a>
           </div>
               
           @endforeach
@@ -110,7 +111,7 @@
 
       <h6 class="sidebar-title">Most Downloads</h6>
       @foreach ($most_downloads as $d)
-        <a class="media text-default align-items-center mb-5" href="{{ route('frontend.music.show', $d->uuid) }}">
+        <a class="media text-default align-items-center mb-5" href="{{ route('frontend.music.show', ['f' => $d->slug, 'id' => $d->uuid]) }}">
           <img class="rounded w-65px mr-4" src="{{ asset($d->cover_image) }}">
           <p class="media-body small-2 lh-4 mb-0">{{ $d->downloads_count }} <i class="fa fa-download"></i></p>
           <p class="media-body small-2 lh-4 mb-0">{{ $d->title }}</p>

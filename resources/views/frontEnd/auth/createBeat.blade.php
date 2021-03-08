@@ -109,7 +109,7 @@
               @endisset
 
                 <div class="form-control-file">
-                    <input type="file" name="cover_image" id="cover_image" class="form-control" 
+                    <input type="file" name="cover_image" id="cover_image" class="form-control" accept=".png, .jpg, .jpeg"
                     class="@error('cover_image') is-invalid @enderror" value="{{ old('cover_image') }}">
                 </div>
                 @error('cover_image')

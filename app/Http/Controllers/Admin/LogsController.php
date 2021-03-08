@@ -30,4 +30,6 @@ class LogsController extends Controller
             ->with('user', $user)
             ->with('type', $type);
     }
+
+   
 }

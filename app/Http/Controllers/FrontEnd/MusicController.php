@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers\FrontEnd;
 
-use App\Beat;
 use App\Category;
 use App\Http\Controllers\Controller;
 use App\Song;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
 
 class MusicController extends Controller
 {
@@ -24,7 +22,7 @@ class MusicController extends Controller
             ->with('most_downloads', $most_downloads);
     }
 
-    public function show($uuid){
+    public function show($f, $uuid){
         $song = Song::findSong($uuid);
         $size = $this->getFileSize($song->location);
         $song->with('comments', 'category');
@@ -36,9 +34,10 @@ class MusicController extends Controller
             ->with('most_downloads', $most_downloads);
     }
 
-    public function download($uuid){
+    public function download($f, $uuid){
         $s = Song::findSong($uuid);
 
+        
         return $this->downloadFile($s); 
     }
 
@@ -55,7 +54,8 @@ class MusicController extends Controller
         } 
     }
 
-    public function showByCategory(Category $category){
+    public function showByCategory($cat){
+        $category = Category::where('slug', $cat)->firstOrFail();
         $most_downloads = $this->most_downloads();
         $songs = $category->songs()->withCount('comments')->paginate(12);
         return view('frontEnd.music')
