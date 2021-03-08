@@ -22,7 +22,7 @@ class BeatsController extends Controller
             ->with('most_downloads', $most_downloads);
     }
 
-    public function show($beat){
+    public function show($f, $beat){
        
         $beat = Beat::findBeat($beat);
         $size = $this->getFileSize($beat->location);
@@ -56,7 +56,7 @@ class BeatsController extends Controller
     }
 
     public function showByCategory(Category $category){
-
+       
         $bts = $category->beats()->withCount('comments')->paginate(12);
 
         $most_downloads = $this->most_donwloads();

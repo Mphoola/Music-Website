@@ -1,7 +1,7 @@
 @extends('layouts.frontEnd')
 
 @section('title')
-96Legacy | Beat Single | {{ $beat->title }}
+96Legacy |  {{ $beat->title }}
 @endsection
 
 @section('header') 
@@ -146,7 +146,7 @@
 
       <h6 class="sidebar-title">Most Downloads</h6>
       @foreach ($most_downloads as $d)
-        <a class="media text-default align-items-center mb-5" href="{{ route('frontend.beats.show', $d->uuid) }}">
+        <a class="media text-default align-items-center mb-5" href="{{ route('frontend.beats.show', ['f' => $d->slug, 'id' => $d->uuid]) }}">
           <img class="rounded w-65px mr-4" src="{{ asset($d->cover_image) }}">
           <p class="media-body small-2 lh-4 mb-0">{{ $d->downloads_count }} <i class="fa fa-download"></i></p>
           <p class="media-body small-2 lh-4 mb-0">{{ $d->title }}</p>

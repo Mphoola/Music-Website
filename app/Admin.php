@@ -21,13 +21,17 @@ class Admin extends Authenticatable
 
     protected $fillable = [
         'name', 'email', 'password', 'last_login_at',
-        'last_login_ip', 'password_changed_at', 'image', 'bio'
+        'last_login_ip', 'password_changed_at', 'image', 'bio', 'banned_until'
     ];
 
     protected $hidden = [
         'password'
     ];
 
+    protected $dates = [
+        'banned_until'
+    ];
+    
     public function posts(){
         return $this->hasMany(Post::class);
     }

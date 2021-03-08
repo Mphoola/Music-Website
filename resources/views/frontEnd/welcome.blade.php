@@ -27,13 +27,13 @@
        @foreach ($musics as $m)
        <div class="col-md-4 col-xl-3 hover-shadow-1 mb-1">
         <div class="product-3 mb-1">
-          <a class="product-media" href="{{ route('frontend.music.show', $m->uuid) }}">
+          <a class="product-media" href="{{ route('frontend.music.show', ['f' => $m->slug, 'id' => $m->uuid]) }}">
             <span class="badge badge-pill badge-primary badge-pos-left">New</span>
             <img src="{{ asset($m->cover_image) }}" alt="no cover image">
           </a>
 
           <div class="product-detail">
-            <h6><a href="{{ route('frontend.music.show', $m->uuid) }}">{{ $m->full_details }}</a></h6>
+            <h6><a href="{{ route('frontend.music.show', ['f' => $m->slug, 'id' => $m->uuid]) }}">{{ $m->full_details }}</a></h6>
             <div class='d-flex justify-content-between'>
               <div class="product-price">
                 {{ $m->downloads_count }} <i class='fa fa-download'></i>
@@ -61,13 +61,13 @@
        @foreach ($beats as $b)
        <div class="col-md-4 col-xl-3 hover-shadow-6 mb-1 d-block">
         <div class="product-3 mb-1">
-          <a class="product-media" href="{{ route('frontend.beats.show', $b->uuid) }}">
+          <a class="product-media" href="{{ route('frontend.beats.show', ['f' => $b->slug, 'id' => $b->uuid]) }}">
             <span class="badge badge-pill badge-primary badge-pos-left">New</span>
             <img src="{{ asset($b->cover_image) }}" alt="product">
           </a>
 
           <div class="product-detail">
-            <h6><a href="{{ route('frontend.beats.show', $b->uuid) }}">{{ $b->full_details }}</a></h6>
+            <h6><a href="{{ route('frontend.beats.show', ['f' => $b->slug, 'id' => $b->uuid]) }}">{{ $b->full_details }}</a></h6>
             <div class='d-flex justify-content-between'>
               <div class="product-price">
                 {{ $b->downloads_count }} <i class='fa fa-download'></i>
@@ -94,13 +94,13 @@
        @foreach ($videos as $v)
        <div class="col-md-4 col-xl-3 hover-shadow-6 mb-1 d-block">
         <div class="product-3 mb-1">
-          <a class="product-media" href="{{ route('frontend.videos.show', $v->uuid) }}">
+          <a class="product-media" href="{{ route('frontend.videos.show', ['f' => $v->slug, 'id' => $v->uuid]) }}">
             <span class="badge badge-pill badge-primary badge-pos-left">New</span>
             <img src="{{ asset($v->cover_image) }}" alt="product">
           </a>
 
           <div class="product-detail">
-            <h6><a href="{{ route('frontend.videos.show', $v->uuid) }}">{{ $v->full_details }}</a></h6>
+            <h6><a href="{{ route('frontend.videos.show', ['f' => $v->slug, 'id' => $v->uuid]) }}">{{ $v->full_details }}</a></h6>
             <div class='d-flex justify-content-between'>
               <div class="product-price">
                 {{ $v->downloads_count }} <i class='fa fa-download'></i>
@@ -143,7 +143,7 @@
 
       <h6 class="sidebar-title">Most Downloads</h6>
       @foreach ($most_downloads as $d)
-        <a class="media text-default align-items-center mb-5" href="{{ route('frontend.music.show', $d->uuid) }}">
+        <a class="media text-default align-items-center mb-5" href="{{ route('frontend.music.show', ['f' => $d->slug, 'id' => $d->uuid]) }}">
           <img class="rounded w-65px mr-4" src="{{ asset($d->cover_image) }}">
           <p class="media-body small-2  mb-0">{{ $d->downloads_count }} <i class="fa fa-download"></i></p>
           <p class="media-body small-2  mb-0">{{ $d->title }}</p>
@@ -168,7 +168,7 @@
     <h3 class='text-capitalize text-center'>Best of all time</h3>
      <div data-provide="slider" data-autoplay="true" data-slides-to-show="6" data-css-ease="linear" data-speed="12000" data-autoplay-speed="0" data-pause-on-hover="true">
       @foreach ($musics as $d)
-      <a href="{{ route('frontend.music.show', $d->uuid) }}">
+      <a href="{{ route('frontend.music.show', ['f' => $d->full_details, 'id' => $d->uuid]) }}">
         <div class="p-2">
             <div class="rounded bg-img h-200 " style="background-image: url({{ asset($d->cover_image) }});"></div>
             {{ $d->full_details }}

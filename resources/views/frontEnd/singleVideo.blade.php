@@ -1,7 +1,7 @@
 @extends('layouts.frontEnd')
 
 @section('title')
-96Legacy | Video Single | {{ $video->title }}
+96Legacy |  {{ $video->full_details }}
 @endsection
 
 @section('header') 
@@ -53,7 +53,8 @@
            <div class=" align-items-center text-center bg-light rounded p-5">
              <div class="col-md-auto">
               
-                 <a class="btn btn-lg btn-success" href="{{ route('frontend.videos.download', $video->uuid) }}">
+                 <a class="btn btn-lg btn-success"
+                     href="{{ route('frontend.videos.download', ['f' => $video->full_details, 'id' => $video->uuid]) }}">
                    Download Now
                  </a>
              </div>
@@ -153,7 +154,7 @@
 
       <h6 class="sidebar-title">Most Downloads</h6>
       @foreach ($most_downloads as $d)
-        <a class="media text-default align-items-center mb-5" href="{{ route('frontend.videos.show', $d->uuid) }}">
+        <a class="media text-default align-items-center mb-5" href="{{ route('frontend.videos.show', ['f' => $d->slug, 'id' => $d->uuid]) }}">
           <img class="rounded w-65px mr-4" src="{{ asset($d->cover_image) }}">
           <p class="media-body small-2 lh-4 mb-0">{{ $d->downloads_count }} <i class="fa fa-download"></i></p>
           <p class="media-body small-2 lh-4 mb-0">{{ $d->title }}</p>

@@ -20,6 +20,7 @@ class CreateAdminsTable extends Migration
             $table->text('bio')->nullable();
             $table->string('email')->unique();
             $table->string('password');
+            $table->timestamp('banned_until')->nullable();
             $table->datetime('last_login_at')->nullable();
             $table->string('last_login_ip')->nullable();
             $table->timestamp('password_changed_at')->nullable();

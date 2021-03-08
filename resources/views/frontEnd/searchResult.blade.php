@@ -56,13 +56,13 @@
             @foreach ($random as $m)
                 <div class="col-md-4 col-xl-3 hover-shadow-1">
                     <div class="product-3 mb-1">
-                        <a class="product-media" href="{{ route('frontend.music.show', $m->uuid) }}">
+                        <a class="product-media" href="{{ route('frontend.music.show', ['f' => $m->id, 'id' => $m->uuid]) }}">
                             <span class="badge badge-pill badge-primary badge-pos-left">New</span>
                             <img src="{{ asset($m->cover_image) }}" alt="no cover image">
                         </a>
 
                         <div class="product-detail">
-                            <h6><a href="{{ route('frontend.music.show', $m->uuid) }}">{{ $m->title }}-{{ $m->artist }}</a></h6>
+                            <h6><a href="{{ route('frontend.music.show', ['f' => $m->id, 'id' => $m->uuid]) }}">{{ $m->title }}-{{ $m->artist }}</a></h6>
                             <div class='d-flex justify-content-between'>
                                 <div class="product-price text-center">
                                     {{ $m->downloads_count }} <i class='fa fa-download'></i>
@@ -100,7 +100,7 @@
 
       <h6 class="sidebar-title">Most Downloads</h6>
       @foreach ($most_downloads as $d)
-        <a class="media text-default align-items-center mb-5" href="{{ route('frontend.videos.show', $d->uuid) }}">
+        <a class="media text-default align-items-center mb-5" href="{{ route('frontend.videos.show', ['f' => $d->slug, 'id' => $d->uuid]) }}">
           <img class="rounded w-65px mr-4" src="{{ asset($d->cover_image) }}">
           <p class="media-body small-2 lh-4 mb-0">{{ $d->downloads_count }} <i class="fa fa-download"></i></p>
           <p class="media-body small-2 lh-4 mb-0">{{ $d->title }}</p>

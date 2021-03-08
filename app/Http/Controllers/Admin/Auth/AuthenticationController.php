@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Auth;
 
 use App\Admin;
 use App\Http\Controllers\Controller;
+use App\Post;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -21,19 +22,28 @@ class AuthenticationController extends Controller
             'email' => 'required|string',
             'password' => 'required|string',
         ]);
+        
         $user = Admin::where('email',$request->email)->first();
         $att =  Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password]);
       
         if($att){
+            \activity()
+                
+                ->by(Auth::guard('admin')->user()->id)
+                ->withProperties(['word' => 'welcome '.Auth::guard('admin')->user()->name])
+                ->log('Logged in');
+
             $user->update([
                 'last_login_at' => Carbon::now()->toDateTimeString(),
                 'last_login_ip' => $request->getClientIp()
             ]);
-            session()->put('user', $user->name);
-            session()->put('type', 'admin');
+            
+            $request->session()->regenerate();
+            // session()->put('user', $user->name);
+            // session()->put('type', 'admin');
             return redirect()->route('dashboard');
         }else{
-            return redirect()->back()->with('errors','Your email and password does not match')->
+            return redirect()->back()->with('error','Your email and password does not match')->
             withInput($request->only('email', 'remember'));
         }
     }
@@ -61,9 +71,19 @@ class AuthenticationController extends Controller
     }
 
     public function logout(){
+        \activity()
+            ->by(Auth::guard('admin')->user()->id)
+            ->withProperties(['word' => 'Goodbye '.Auth::guard('admin')->user()->name])
+            ->log('Logged out');
+
         Auth::guard('admin')->logout();
-        session()->forget('user');
-        session()->forget('admin');
+
+        request()->session()->invalidate();
+
+        request()->session()->regenerateToken();
+
+        // session()->forget('user');
+        // session()->forget('admin');
         return redirect('/management/login');
     }
 }

@@ -10,7 +10,7 @@
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
-
+                        {{-- @include('partials.info') --}}
                         <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
@@ -51,7 +51,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group row mb-0">
+                        <div class="form-group row mb-4">
                             <div class="col-md-8 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Login') }}
@@ -65,6 +65,27 @@
                             </div>
                         </div>
                     </form>
+
+                    <div class=" row mb-0">
+                        <div class="col-md-8 offset-md-4">
+                            <a href="{{ route('social_login', ['provider' => 'github']) }}" class="btn btn-primary">Login with Github</a>
+                        </div>
+                    </div>
+                    <div class=" row mb-0">
+                        <div class="col-md-8 offset-md-4">
+                            <a href="{{ route('social_login', ['provider' => 'facebook']) }}" class="btn btn-success">Login with fb</a>
+                        </div>
+                    </div>
+                    <div class=" row mb-0">
+                        <div class="col-md-8 offset-md-4">
+                            <a href="{{ route('social_login', ['provider' => 'twitter']) }}" class="btn btn-info">Login with twitter</a>
+                        </div>
+                    </div>
+                    <div class=" row mb-0">
+                        <div class="col-md-8 offset-md-4">
+                            <a href="{{ route('social_login', ['provider' => 'google']) }}" class="btn btn-danger">Login with Google</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

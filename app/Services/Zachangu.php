@@ -1,13 +1,14 @@
 <?php
 
 namespace App\Services;
+use Illuminate\Support\Str;
 
 class Zachangu{
     var $success_url='http://wgithost.xyz/za/success.php';
     var $error_url='http://wgithost.xyz/za/error.php';
     var $service_cost=100;
     var $zachangu_api_key='G0cMSD5NxjJ29OZqYfEm';
-    var $base='https://zachangu.xyz/api';
+    var $base='https://ussd.wgithost.xyz/api';
 
     function getPaymentProviders(){
         $payload['providers'] = array(
@@ -39,10 +40,9 @@ class Zachangu{
         return $j;
     }
 
-    function paid($invoiceId){
-        if(!isset($invoiceId))return;
-        $base  = 'https://ussd.wgithost.xyz/api/checkstatus';
-        $query = "invoiceNo=".$invoiceId;
+    function paymentStatus($id){
+        $base  = $this->base."/checkstatus";
+        $query = "invoiceNo=".$id;
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $base);
         curl_setopt($ch, CURLOPT_POST, 1 );
@@ -54,19 +54,8 @@ class Zachangu{
         return $json;
     }
 
-    function dump($var){
-        echo "<pre>";
-        print_r($var);
-        echo "</pre>";
-    }
-
     function randomId($length=20){
-        $keys = range(0,9);
-        $key='';
-        for($i=0; $i < $length; $i++){
-            $key .= $keys[array_rand($keys)];
-        }
-        return $key;
+       return Str::random($length); 
     }
 
 }

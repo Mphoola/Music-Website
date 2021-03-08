@@ -3,7 +3,9 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Illuminate\Support\Str;
 use Spatie\Searchable\Searchable;
 use Spatie\Searchable\SearchResult;
 
@@ -23,7 +25,12 @@ class Song extends Model implements Searchable
 
     public function getSearchResult(): SearchResult
     {
-        $url = route('frontend.music.show', $this->uuid);
+        if(Auth::guard('admin')->check()){
+            $url = route('songs.show', $this->id);
+        }else{
+
+            $url = route('frontend.music.show', ['f' => $this->slug, 'id' => $this->uuid]);
+        }
 
         return new SearchResult(
             $this,
@@ -34,6 +41,10 @@ class Song extends Model implements Searchable
     
     public function getFullDetailsAttribute(){
         return $this->artist . ' - ' . $this->title;
+    }
+
+    public function getSlugAttribute(){
+        return Str::slug($this->full_details);
     }
 
     public function getProducedDateAttribute(){

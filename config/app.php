@@ -182,6 +182,7 @@ return [
         Spatie\Permission\PermissionServiceProvider::class,
         Dawson\Youtube\YoutubeServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
+        Jorenvh\Share\Providers\ShareServiceProvider::class,
 
 
     ],
@@ -242,6 +243,7 @@ return [
         'Datatables' => Yajra\DataTables\Facades\Datatables::class,
 
         'GetAdvert' => App\Facades\AdvertFacade::class,
+        'Share' => Jorenvh\Share\ShareFacade::class,
 
     ],
 

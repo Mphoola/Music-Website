@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Support\Facades\Auth;
 
 class GoHome
 {
@@ -15,7 +16,7 @@ class GoHome
      */
     public function handle($request, Closure $next)
     {
-        if(session()->has('user')){
+        if(Auth::guard('admin')->check()){
             return redirect()->back();
         }
         return $next($request);

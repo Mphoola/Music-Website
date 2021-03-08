@@ -12,7 +12,7 @@
           
           <a href="{{ route('videos.create') }}" class="btn btn-success btn-round btn-sm">Upload New Video</a>
           <div class="card-tools">
-            <form action="{{ route('beat_search') }}" method="get">
+            <form action="{{ route('video_search') }}" method="get">
               @csrf
               <div class="input-group input-group-sm" style="width: 250px;">
                 <input type="text" name="query" class="form-control float-right" placeholder="Search Video">

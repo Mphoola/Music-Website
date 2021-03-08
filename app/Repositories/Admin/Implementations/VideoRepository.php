@@ -45,7 +45,7 @@ class VideoRepository implements VideoInterface{
             'market' => $data['market'],
             'amount' => $amt,
             'cover_image' => 'Uploads/Cover_images/'. globalMethods::saveCoverImage(),
-            'location' => 'Uploads/Beats/'. $videoNameToStore,
+            'location' => 'Uploads/Videos/'. $videoNameToStore,
             'extension' => $video_extension,
             'uuid' => (string)\Webpatser\Uuid\Uuid::generate(4),
             'admin_id' => Auth::guard('admin')->user()->id

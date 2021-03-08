@@ -21,11 +21,8 @@
                 <form class="col-md-4 col-xl-4 mx-auto input-border" method="POST"
                     action="{{ route('dashboard.login') }}">
                     @csrf
-                    @if (session()->has('errors'))
-                        <div class="alert alert-danger">
-                            {{ session()->get('errors') }}
-                        </div>
-                    @endif
+                    
+                    @include('partials.info')
 
                   <div class="form-group">
                     <input type="email" name="email" class="form-control form-control-lg" placeholder="Email" required
