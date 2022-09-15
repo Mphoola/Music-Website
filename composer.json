@@ -8,7 +8,7 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^7.2.5",
+        "php": "^7.2.5|8.1.7",
         "barryvdh/laravel-debugbar": "^3.5",
         "darryldecode/cart": "^4.2",
         "dawson/youtube": "^6.0",
