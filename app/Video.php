@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Support\Str;
 use Spatie\Searchable\Searchable;
@@ -73,5 +74,13 @@ class Video extends Model implements Searchable
     public function getRouteKeyName()
     {
         return 'uuid';
+    }
+
+    public function getFileSize(){
+        if(file_exists($this->location)){
+            $s = File::size($this->location);
+            
+            return round($s / 1000000, 2);
+        }
     }
 }

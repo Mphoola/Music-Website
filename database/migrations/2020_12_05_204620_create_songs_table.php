@@ -17,7 +17,6 @@ class CreateSongsTable extends Migration
             $table->id();
             $table->string('title');
             $table->string('artist');
-            
             $table->string('producer');
             $table->unsignedInteger('category_id');
             $table->unsignedInteger('user_id')->nullable();

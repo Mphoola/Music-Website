@@ -18,6 +18,7 @@
         "intervention/image": "^2.5",
         "jorenvanhocht/laravel-share": "^4.0",
         "laravel/framework": "^7.24",
+        "laravel/sanctum": "^2.9",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.4",
         "laraveldaily/laravel-charts": "^0.1.25",

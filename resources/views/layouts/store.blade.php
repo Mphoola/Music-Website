@@ -52,24 +52,23 @@
         <div class="header-content-wrapper">
 
             <div class="nav-add">
-               
+
                   <div>
 
                     <a href="/" style="margin: 5px; padding: 7px; background: pink">Go to Free Download</a>
                 </div>
                   <div>
                     <a href="{{ route('shop.beats') }}" style="margin: 5px; padding: 7px; background: pink">Beats</a>
-                   
+
                 </div>
                   <div >
-
                     <a href="{{ route('shop.mp3-music') }}" style="margin: 5px; padding: 7px; background: pink">Mp3 Music</a>
                 </div>
                   <div  >
 
                     <a href="{{ route('shop.videos') }}" style="margin: 5px; padding: 7px; background: pink">Videos</a>
                 </div>
-                
+
                 <li class="cart">
 
                     <a  class="js-cart-animate">
@@ -80,7 +79,7 @@
                     <div class="cart-popup-wrap">
                         <div class="popup-cart">
                             <h4 class="title-cart align-center">MWK {{ Cart::getTotal() }}.00</h4>
-                            
+
                             <a href="{{ route('cart.items') }}">
                                 <div class="btn btn-small btn--dark">
                                     <span class="text">view Cart</span>
@@ -90,7 +89,7 @@
                     </div>
 
                 </div>
-                
+
             </div>
         </div>
 

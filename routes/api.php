@@ -17,3 +17,16 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/', 'API/HomeController@index');
+
+Route::get('categories', 'API\CategoriesController@index');
+
+Route::get('music', 'API\MusicController@index');
+Route::get('music/{id}', 'API\MusicController@show');
+
+Route::get('beats', 'API\BeatController@index');
+Route::get('beat/{id}', 'API\BeatController@show');
+
+Route::get('videos', 'API\VideoController@index');
+Route::get('video/{id}', 'API\VideoController@show');
